@@ -5,13 +5,13 @@ import { ConductorData } from '@/lib/types';
 // ============================================================
 
 export const conductorData: ConductorData = {
-  name: "Your Cousin's Name",
+  name: "Evangelos Stavropoulos",
   tagline: "Conductor",
-  
+
   heroImage: "/images/hero.jpg",
-  
+
   biographyShort: `A passionate conductor with experience across symphonic, operatic, and contemporary repertoire. Known for dynamic interpretations and collaborative approach to music-making.`,
-  
+
   biography: `Add a comprehensive biography here. This should include educational background, major achievements, notable performances, awards, and artistic philosophy.
 
 Include information about training and education, major orchestras and ensembles conducted, awards and competition results, artistic vision and approach, and notable collaborations.
