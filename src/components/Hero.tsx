@@ -11,8 +11,8 @@ interface HeroProps {
   heroImage: string;
 }
 
-  const t = useTranslations('hero');
 export default function Hero({ name, tagline, heroImage }: HeroProps) {
+  const t = useTranslations('hero');
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Background Image with Overlay */}
