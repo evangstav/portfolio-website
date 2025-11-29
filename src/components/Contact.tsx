@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
@@ -20,6 +21,7 @@ const socialIcons = {
 };
 
 export default function Contact({ email, socialLinks }: ContactProps) {
+  const t = useTranslations();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [isSubmitted, setIsSubmitted] = useState(false);

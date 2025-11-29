@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ interface HeroProps {
   heroImage: string;
 }
 
+  const t = useTranslations('hero');
 export default function Hero({ name, tagline, heroImage }: HeroProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -83,7 +85,7 @@ export default function Hero({ name, tagline, heroImage }: HeroProps) {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center gap-2 text-[var(--color-text-muted)]"
         >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-xs tracking-widest uppercase">{t('scroll')}</span>
           <ChevronDown size={20} />
         </motion.div>
       </motion.div>

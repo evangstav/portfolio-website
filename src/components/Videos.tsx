@@ -1,8 +1,10 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
+import { useLocale } from 'next-intl';
 import { Play, X, ChevronRight } from 'lucide-react';
 import { Video } from '@/lib/types';
 
@@ -11,6 +13,8 @@ interface VideosProps {
 }
 
 export default function Videos({ videos }: VideosProps) {
+  const locale = useLocale();
+  const t = useTranslations();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -28,15 +32,15 @@ export default function Videos({ videos }: VideosProps) {
           >
             <div className="flex items-center gap-6">
               <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)]">
-                Videos
+                {t('sections.videos')}
               </h2>
               <div className="hidden sm:block h-px w-24 bg-[var(--color-border)]" />
             </div>
             <a
-              href="/media"
+              href={`/${locale}/media`}
               className="flex items-center gap-2 text-sm tracking-wider uppercase text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
             >
-              View All <ChevronRight size={16} />
+              {t('common.viewAll')} <ChevronRight size={16} />
             </a>
           </motion.div>
 

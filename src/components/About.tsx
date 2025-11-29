@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
@@ -9,6 +10,7 @@ interface AboutProps {
 }
 
 export default function About({ biography }: AboutProps) {
+  const t = useTranslations('sections');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 

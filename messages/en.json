@@ -1,0 +1,57 @@
+{
+  "navigation": {
+    "biography": "Biography",
+    "media": "Media",
+    "concerts": "Concerts",
+    "contact": "Contact",
+    "back": "Back"
+  },
+  "hero": {
+    "scroll": "Scroll"
+  },
+  "sections": {
+    "about": "About",
+    "videos": "Videos",
+    "concerts": "Concerts",
+    "affiliations": "Affiliations",
+    "press": "Press",
+    "media": "Media"
+  },
+  "concerts": {
+    "upcoming": "Upcoming",
+    "pastPerformances": "Past Performances"
+  },
+  "contact": {
+    "heading": "Get in Touch",
+    "description": "For booking inquiries, collaborations, or general questions, please reach out.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "messageSent": "Message Sent"
+    },
+    "email": "Email",
+    "follow": "Follow"
+  },
+  "biography": {
+    "title": "Biography",
+    "downloadHeading": "Download Biography",
+    "downloadDescription": "For press and promotional use, download the full biography and high-resolution photos.",
+    "downloadBio": "Full Biography (PDF)",
+    "downloadPhotos": "Press Photos (ZIP)"
+  },
+  "media": {
+    "title": "Media",
+    "videos": "Videos",
+    "photos": "Photos",
+    "noVideos": "No videos in this category.",
+    "noPhotos": "No photos in this category.",
+    "all": "all"
+  },
+  "common": {
+    "viewAll": "View All",
+    "allRightsReserved": "All rights reserved"
+  }
+}

@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { motion } from 'framer-motion';
 import { Instagram, Youtube, Facebook, Linkedin, Twitter, Mail } from 'lucide-react';
@@ -19,6 +20,7 @@ const socialIcons = {
 };
 
 export default function Footer({ conductorName, socialLinks }: FooterProps) {
+  const t = useTranslations('common');
   const currentYear = new Date().getFullYear();
 
   return (
@@ -68,7 +70,7 @@ export default function Footer({ conductorName, socialLinks }: FooterProps) {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-sm text-[var(--color-text-muted)]"
           >
-            © {currentYear} {conductorName}. All rights reserved.
+            © {currentYear} {conductorName}. {t('allRightsReserved')}.
           </motion.p>
         </div>
       </div>

@@ -1,0 +1,57 @@
+{
+  "navigation": {
+    "biography": "[EL] Biography",
+    "media": "[EL] Media",
+    "concerts": "[EL] Concerts",
+    "contact": "[EL] Contact",
+    "back": "[EL] Back"
+  },
+  "hero": {
+    "scroll": "[EL] Scroll"
+  },
+  "sections": {
+    "about": "[EL] About",
+    "videos": "[EL] Videos",
+    "concerts": "[EL] Concerts",
+    "affiliations": "[EL] Affiliations",
+    "press": "[EL] Press",
+    "media": "[EL] Media"
+  },
+  "concerts": {
+    "upcoming": "[EL] Upcoming",
+    "pastPerformances": "[EL] Past Performances"
+  },
+  "contact": {
+    "heading": "[EL] Get in Touch",
+    "description": "[EL] For booking inquiries, collaborations, or general questions, please reach out.",
+    "form": {
+      "name": "[EL] Name",
+      "email": "[EL] Email",
+      "subject": "[EL] Subject",
+      "message": "[EL] Message",
+      "send": "[EL] Send Message",
+      "messageSent": "[EL] Message Sent"
+    },
+    "email": "[EL] Email",
+    "follow": "[EL] Follow"
+  },
+  "biography": {
+    "title": "[EL] Biography",
+    "downloadHeading": "[EL] Download Biography",
+    "downloadDescription": "[EL] For press and promotional use, download the full biography and high-resolution photos.",
+    "downloadBio": "[EL] Full Biography (PDF)",
+    "downloadPhotos": "[EL] Press Photos (ZIP)"
+  },
+  "media": {
+    "title": "[EL] Media",
+    "videos": "[EL] Videos",
+    "photos": "[EL] Photos",
+    "noVideos": "[EL] No videos in this category.",
+    "noPhotos": "[EL] No photos in this category.",
+    "all": "[EL] all"
+  },
+  "common": {
+    "viewAll": "[EL] View All",
+    "allRightsReserved": "[EL] All rights reserved"
+  }
+}

@@ -4,17 +4,21 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { href: '/biography', label: 'Biography' },
-  { href: '/media', label: 'Media' },
-  { href: '/#concerts', label: 'Concerts' },
-  { href: '/#contact', label: 'Contact' },
-];
+import { useLocale, useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navigation({ conductorName }: { conductorName: string }) {
+  const locale = useLocale();
+  const t = useTranslations('navigation');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { href: `/biography`, label: t('biography') },
+    { href: `/media`, label: t('media') },
+    { href: `/#concerts`, label: t('concerts') },
+    { href: `/#contact`, label: t('contact') },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +44,7 @@ export default function Navigation({ conductorName }: { conductorName: string })
           <div className="flex items-center justify-between h-20">
             {/* Logo / Name */}
             <Link
-              href="/"
+              href={`/${locale}`}
               className="font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors duration-300"
             >
               {conductorName}
@@ -51,12 +55,13 @@ export default function Navigation({ conductorName }: { conductorName: string })
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={`/${locale}${link.href}`}
                   className="text-sm tracking-wider uppercase text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
               ))}
+              <LanguageSwitcher />
             </div>
 
             {/* Mobile Menu Button */}
@@ -90,7 +95,7 @@ export default function Navigation({ conductorName }: { conductorName: string })
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link
-                    href={link.href}
+                    href={`/${locale}${link.href}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="font-[family-name:var(--font-display)] text-3xl text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
                   >
@@ -98,6 +103,14 @@ export default function Navigation({ conductorName }: { conductorName: string })
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.1 }}
+                className="mt-4"
+              >
+                <LanguageSwitcher />
+              </motion.div>
             </nav>
           </motion.div>
         )}

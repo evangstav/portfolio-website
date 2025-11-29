@@ -4,12 +4,17 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { ArrowLeft, Quote, Download } from 'lucide-react';
-import { conductorData } from '@/data/conductor';
+import { useConductorData } from '@/lib/useConductorData';
 
 export default function BiographyPage() {
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
+  const locale = useLocale();
+  const t = useTranslations();
+  const conductorData = useConductorData();
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
@@ -20,15 +25,15 @@ export default function BiographyPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           <Link
-            href="/"
+            href={`/${locale}`}
             className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors"
           >
             <ArrowLeft size={20} />
-            <span className="text-sm tracking-wider uppercase">Back</span>
+            <span className="text-sm tracking-wider uppercase">{t('navigation.back')}</span>
           </Link>
           
           <Link
-            href="/"
+            href={`/${locale}`}
             className="font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
           >
             {conductorData.name}
@@ -59,7 +64,7 @@ export default function BiographyPage() {
                 transition={{ duration: 0.8 }}
               >
                 <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-6xl lg:text-7xl text-[var(--color-text-primary)] mb-4">
-                  Biography
+                  {t('biography.title')}
                 </h1>
                 <div className="w-20 h-px bg-[var(--color-accent)]" />
               </motion.div>
@@ -108,7 +113,7 @@ export default function BiographyPage() {
                 className="text-center mb-16"
               >
                 <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)] mb-4">
-                  Press
+                  {t('sections.press')}
                 </h2>
                 <div className="w-16 h-px bg-[var(--color-accent)] mx-auto" />
               </motion.div>
@@ -155,10 +160,10 @@ export default function BiographyPage() {
               transition={{ duration: 0.8 }}
             >
               <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl text-[var(--color-text-primary)] mb-6">
-                Download Biography
+                {t('biography.downloadHeading')}
               </h2>
               <p className="text-[var(--color-text-secondary)] mb-8 max-w-md mx-auto">
-                For press and promotional use, download the full biography and high-resolution photos.
+                {t('biography.downloadDescription')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
@@ -166,14 +171,14 @@ export default function BiographyPage() {
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-accent)] text-[var(--color-bg-primary)] rounded-lg font-medium hover:bg-[var(--color-accent-hover)] transition-colors"
                 >
                   <Download size={20} />
-                  Full Biography (PDF)
+                  {t('biography.downloadBio')}
                 </a>
                 <a
                   href="/downloads/press-photos.zip"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-lg font-medium hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
                 >
                   <Download size={20} />
-                  Press Photos (ZIP)
+                  {t('biography.downloadPhotos')}
                 </a>
               </div>
             </motion.div>
@@ -185,7 +190,7 @@ export default function BiographyPage() {
       <footer className="py-12 border-t border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-sm text-[var(--color-text-muted)]">
-            © {new Date().getFullYear()} {conductorData.name}. All rights reserved.
+            © {new Date().getFullYear()} {conductorData.name}. {t('common.allRightsReserved')}.
           </p>
         </div>
       </footer>

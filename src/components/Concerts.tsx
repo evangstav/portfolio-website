@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
@@ -11,6 +12,7 @@ interface ConcertsProps {
 }
 
 export default function Concerts({ concerts }: ConcertsProps) {
+  const t = useTranslations();
   const ref = useRef(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });

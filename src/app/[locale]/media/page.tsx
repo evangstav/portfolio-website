@@ -4,13 +4,17 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { Play, X, ArrowLeft, ChevronLeft, ChevronRight, Camera, Video as VideoIcon } from 'lucide-react';
-import { conductorData } from '@/data/conductor';
+import { useConductorData } from '@/lib/useConductorData';
 import { Video, GalleryImage } from '@/lib/types';
 
 type MediaTab = 'videos' | 'photos';
 
 export default function MediaPage() {
+  const locale = useLocale();
+  const t = useTranslations();
+  const conductorData = useConductorData();
   const [activeTab, setActiveTab] = useState<MediaTab>('videos');
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -53,15 +57,15 @@ export default function MediaPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           <Link
-            href="/"
+            href={`/${locale}`}
             className="flex items-center gap-3 text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors"
           >
             <ArrowLeft size={20} />
-            <span className="text-sm tracking-wider uppercase">Back</span>
+            <span className="text-sm tracking-wider uppercase">{t('navigation.back')}</span>
           </Link>
           
           <Link
-            href="/"
+            href={`/${locale}`}
             className="font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
           >
             {conductorData.name}
@@ -81,7 +85,7 @@ export default function MediaPage() {
             className="text-center mb-12"
           >
             <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-6xl text-[var(--color-text-primary)] mb-4">
-              Media
+              {t('media.title')}
             </h1>
             <div className="w-16 h-px bg-[var(--color-accent)] mx-auto" />
           </motion.div>
@@ -199,7 +203,7 @@ export default function MediaPage() {
 
                 {filteredVideos.length === 0 && (
                   <div className="text-center py-16">
-                    <p className="text-[var(--color-text-muted)]">No videos in this category.</p>
+                    <p className="text-[var(--color-text-muted)]">{t('media.noVideos')}</p>
                   </div>
                 )}
               </motion.div>
@@ -274,7 +278,7 @@ export default function MediaPage() {
 
                 {filteredPhotos.length === 0 && (
                   <div className="text-center py-16">
-                    <p className="text-[var(--color-text-muted)]">No photos in this category.</p>
+                    <p className="text-[var(--color-text-muted)]">{t('media.noPhotos')}</p>
                   </div>
                 )}
               </motion.div>
@@ -416,7 +420,7 @@ export default function MediaPage() {
       <footer className="py-12 border-t border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-sm text-[var(--color-text-muted)]">
-            © {new Date().getFullYear()} {conductorData.name}. All rights reserved.
+            © {new Date().getFullYear()} {conductorData.name}. {t('common.allRightsReserved')}.
           </p>
         </div>
       </footer>

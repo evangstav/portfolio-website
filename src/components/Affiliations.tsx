@@ -1,4 +1,5 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
@@ -10,6 +11,7 @@ interface AffiliationsProps {
 }
 
 export default function Affiliations({ affiliations }: AffiliationsProps) {
+  const t = useTranslations();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
