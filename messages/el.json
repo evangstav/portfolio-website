@@ -1,57 +1,57 @@
 {
   "navigation": {
-    "biography": "[EL] Biography",
-    "media": "[EL] Media",
-    "concerts": "[EL] Concerts",
-    "contact": "[EL] Contact",
-    "back": "[EL] Back"
+    "biography": "Βιογραφία",
+    "media": "Πολυμέσα",
+    "concerts": "Συναυλίες",
+    "contact": "Επικοινωνία",
+    "back": "Πίσω"
   },
   "hero": {
-    "scroll": "[EL] Scroll"
+    "scroll": "Κύλιση"
   },
   "sections": {
-    "about": "[EL] About",
-    "videos": "[EL] Videos",
-    "concerts": "[EL] Concerts",
-    "affiliations": "[EL] Affiliations",
-    "press": "[EL] Press",
-    "media": "[EL] Media"
+    "about": "Σχετικά",
+    "videos": "Βίντεο",
+    "concerts": "Συναυλίες",
+    "affiliations": "Συνεργασίες",
+    "press": "Τύπος",
+    "media": "Πολυμέσα"
   },
   "concerts": {
-    "upcoming": "[EL] Upcoming",
-    "pastPerformances": "[EL] Past Performances"
+    "upcoming": "Επερχόμενες",
+    "pastPerformances": "Προηγούμενες Εμφανίσεις"
   },
   "contact": {
-    "heading": "[EL] Get in Touch",
-    "description": "[EL] For booking inquiries, collaborations, or general questions, please reach out.",
+    "heading": "Επικοινωνήστε μαζί μου",
+    "description": "Για αιτήματα κρατήσεων, συνεργασίες ή γενικές ερωτήσεις, παρακαλούμε επικοινωνήστε.",
     "form": {
-      "name": "[EL] Name",
-      "email": "[EL] Email",
-      "subject": "[EL] Subject",
-      "message": "[EL] Message",
-      "send": "[EL] Send Message",
-      "messageSent": "[EL] Message Sent"
+      "name": "Όνομα",
+      "email": "Email",
+      "subject": "Θέμα",
+      "message": "Μήνυμα",
+      "send": "Αποστολή Μηνύματος",
+      "messageSent": "Το Μήνυμα Στάλθηκε"
     },
-    "email": "[EL] Email",
-    "follow": "[EL] Follow"
+    "email": "Email",
+    "follow": "Ακολουθήστε"
   },
   "biography": {
-    "title": "[EL] Biography",
-    "downloadHeading": "[EL] Download Biography",
-    "downloadDescription": "[EL] For press and promotional use, download the full biography and high-resolution photos.",
-    "downloadBio": "[EL] Full Biography (PDF)",
-    "downloadPhotos": "[EL] Press Photos (ZIP)"
+    "title": "Βιογραφία",
+    "downloadHeading": "Λήψη Βιογραφίας",
+    "downloadDescription": "Για χρήση από τον τύπο και για προωθητικούς σκοπούς, κατεβάστε την πλήρη βιογραφία και φωτογραφίες υψηλής ανάλυσης.",
+    "downloadBio": "Πλήρης Βιογραφία (PDF)",
+    "downloadPhotos": "Φωτογραφίες Τύπου (ZIP)"
   },
   "media": {
-    "title": "[EL] Media",
-    "videos": "[EL] Videos",
-    "photos": "[EL] Photos",
-    "noVideos": "[EL] No videos in this category.",
-    "noPhotos": "[EL] No photos in this category.",
-    "all": "[EL] all"
+    "title": "Πολυμέσα",
+    "videos": "Βίντεο",
+    "photos": "Φωτογραφίες",
+    "noVideos": "Δεν υπάρχουν βίντεο σε αυτήν την κατηγορία.",
+    "noPhotos": "Δεν υπάρχουν φωτογραφίες σε αυτήν την κατηγορία.",
+    "all": "όλα"
   },
   "common": {
-    "viewAll": "[EL] View All",
-    "allRightsReserved": "[EL] All rights reserved"
+    "viewAll": "Προβολή Όλων",
+    "allRightsReserved": "Με την επιφύλαξη παντός δικαιώματος"
   }
 }
