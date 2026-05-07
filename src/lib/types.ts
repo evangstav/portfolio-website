@@ -3,7 +3,7 @@ export interface Concert {
   title: string;
   organization: string;
   organizationLogo?: string;
-  type: 'Opera' | 'Symphony' | 'Ballet' | 'Chamber' | 'Contemporary' | 'Recording';
+  type: string;
   date: string;
   venue: string;
   description?: string;
@@ -27,7 +27,7 @@ export interface GalleryImage {
   src: string;
   alt: string;
   caption?: string;
-  category?: 'Performance' | 'Rehearsal' | 'Portrait' | 'Event' | 'Other';
+  category?: string;
 }
 
 export interface BiographySection {

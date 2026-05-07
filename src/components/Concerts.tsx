@@ -140,14 +140,21 @@ function ConcertCard({ concert, isPast = false }: { concert: Concert; isPast?: b
     });
   };
 
-  const typeColors: Record<Concert['type'], string> = {
+  const typeColors: Record<string, string> = {
     Opera: 'bg-rose-500/20 text-rose-400',
     Symphony: 'bg-blue-500/20 text-blue-400',
     Ballet: 'bg-purple-500/20 text-purple-400',
     Chamber: 'bg-emerald-500/20 text-emerald-400',
     Contemporary: 'bg-amber-500/20 text-amber-400',
     Recording: 'bg-cyan-500/20 text-cyan-400',
+    Όπερα: 'bg-rose-500/20 text-rose-400',
+    Συμφωνία: 'bg-blue-500/20 text-blue-400',
+    Μπαλέτο: 'bg-purple-500/20 text-purple-400',
+    'Μουσική Δωματίου': 'bg-emerald-500/20 text-emerald-400',
+    Σύγχρονη: 'bg-amber-500/20 text-amber-400',
+    Ηχογράφηση: 'bg-cyan-500/20 text-cyan-400',
   };
+  const typeBadgeClass = typeColors[concert.type] ?? 'bg-neutral-500/20 text-neutral-400';
 
   return (
     <div
@@ -173,7 +180,7 @@ function ConcertCard({ concert, isPast = false }: { concert: Concert; isPast?: b
         
         {/* Type Badge */}
         <span
-          className={`absolute top-4 right-4 text-xs px-3 py-1 rounded-full ${typeColors[concert.type]}`}
+          className={`absolute top-4 right-4 text-xs px-3 py-1 rounded-full ${typeBadgeClass}`}
         >
           {concert.type}
         </span>
