@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { Play, X, ArrowLeft, ChevronLeft, ChevronRight, Camera, Video as VideoIc
 import { useConductorData } from '@/lib/useConductorData';
 import { Video, GalleryImage } from '@/lib/types';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useModalA11y } from '@/lib/useModalA11y';
 
 type MediaTab = 'videos' | 'photos';
 
@@ -353,14 +354,14 @@ export default function MediaGallery() {
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }}
                   className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full z-20 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-                  aria-label="Previous image"
+                  aria-label={t('media.previousImage')}
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('next'); }}
                   className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full z-20 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-                  aria-label="Next image"
+                  aria-label={t('media.nextImage')}
                 >
                   <ChevronRight size={24} />
                 </button>
@@ -401,7 +402,7 @@ export default function MediaGallery() {
 }
 
 // Shared accessible dialog shell: Escape closes, optional arrow-key navigation,
-// focus moves to the close button on open and returns to the trigger on close.
+// Tab is trapped inside, focus returns to the trigger on close.
 function MediaDialog({
   label,
   onClose,
@@ -413,22 +414,8 @@ function MediaDialog({
   onArrow?: (direction: 'prev' | 'next') => void;
   children: React.ReactNode;
 }) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    closeButtonRef.current?.focus();
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onArrow?.('prev');
-      if (e.key === 'ArrowRight') onArrow?.('next');
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      previouslyFocused?.focus();
-    };
-  }, [onClose, onArrow]);
+  const t = useTranslations('media');
+  const { containerRef, initialFocusRef } = useModalA11y({ onClose, onArrow });
 
   return (
     <motion.div
@@ -445,6 +432,7 @@ function MediaDialog({
       <div className="absolute inset-0 bg-black/95" />
 
       <motion.div
+        ref={containerRef}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -453,10 +441,10 @@ function MediaDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          ref={closeButtonRef}
+          ref={initialFocusRef}
           onClick={onClose}
           className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition-colors"
-          aria-label="Close"
+          aria-label={t('close')}
         >
           <X size={28} />
         </button>
