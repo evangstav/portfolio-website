@@ -24,6 +24,10 @@
     "videos": "Videos",
     "photos": "Photos",
     "playVideo": "Play video",
+    "close": "Close",
+    "closeVideo": "Close video",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
     "noVideos": "No videos in this category.",
     "noPhotos": "No photos in this category.",
     "all": "all"

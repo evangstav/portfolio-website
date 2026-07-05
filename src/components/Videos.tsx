@@ -1,12 +1,13 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { Play, X, ChevronRight } from 'lucide-react';
 import { Video } from '@/lib/types';
+import { useModalA11y } from '@/lib/useModalA11y';
 
 interface VideosProps {
   videos: Video[];
@@ -131,21 +132,8 @@ function VideoCard({ video, onClick }: { video: Video; onClick: () => void }) {
 }
 
 function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  // Escape closes; focus moves into the dialog on open and back on unmount
-  useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    closeButtonRef.current?.focus();
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      previouslyFocused?.focus();
-    };
-  }, [onClose]);
+  const t = useTranslations('media');
+  const { containerRef, initialFocusRef } = useModalA11y({ onClose });
 
   return (
     <motion.div
@@ -164,6 +152,7 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
 
       {/* Modal Content */}
       <motion.div
+        ref={containerRef}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -173,10 +162,10 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
       >
         {/* Close Button */}
         <button
-          ref={closeButtonRef}
+          ref={initialFocusRef}
           onClick={onClose}
           className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition-colors"
-          aria-label="Close video"
+          aria-label={t('closeVideo')}
         >
           <X size={28} />
         </button>
