@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, GFS_Didot, Outfit } from "next/font/google";
+import { Cormorant_Garamond, Noto_Serif, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Analytics } from '@vercel/analytics/next';
@@ -25,12 +25,12 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
-// Greek display serif — Cormorant has no greek subset, so el headings get the
-// classic Greek Didot instead of the Georgia fallback (see globals.css override)
-const gfsDidot = GFS_Didot({
-  subsets: ["greek"],
-  weight: "400",
-  variable: "--font-gfs-didot",
+// Greek display serif — Cormorant has no greek subset, so el headings use a
+// steadier Greek-capable serif instead of a decorative Didot face.
+const notoSerifGreek = Noto_Serif({
+  subsets: ["greek", "latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-noto-serif-greek",
   preload: false,
 });
 
@@ -116,7 +116,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`scroll-smooth ${cormorant.variable} ${outfit.variable} ${locale === 'el' ? gfsDidot.variable : ''}`}
+      className={`scroll-smooth ${cormorant.variable} ${outfit.variable} ${locale === 'el' ? notoSerifGreek.variable : ''}`}
     >
       <body className="antialiased">
         <script
