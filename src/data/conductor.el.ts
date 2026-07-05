@@ -12,7 +12,9 @@ export const conductorDataEl: ConductorData = {
 
   contactEmail: "vagstav97@hotmail.com",
 
-  socialLinks: [],
+  socialLinks: [
+    { platform: 'youtube', url: 'https://www.youtube.com/@vaggelisstavropoulos' },
+  ],
 
   // Βίντεο - YouTube embed URLs (https://www.youtube-nocookie.com/embed/VIDEO_ID)
   videos: [

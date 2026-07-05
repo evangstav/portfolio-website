@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Cormorant_Garamond, GFS_Didot, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "../globals.css";
@@ -21,6 +21,15 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-outfit",
+});
+
+// Greek display serif — Cormorant has no greek subset, so el headings get the
+// classic Greek Didot instead of the Georgia fallback (see globals.css override)
+const gfsDidot = GFS_Didot({
+  subsets: ["greek"],
+  weight: "400",
+  variable: "--font-gfs-didot",
+  preload: false,
 });
 
 type Locale = (typeof routing.locales)[number];
@@ -60,9 +69,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: locale === 'en' ? 'en_US' : 'el_GR',
       images: [
         {
-          url: '/images/hero-conducting.jpg',
-          width: 2000,
-          height: 1500,
+          url: '/images/og-card.jpg',
+          width: 1200,
+          height: 630,
           alt: data.name,
         },
       ],
@@ -71,7 +80,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: "summary_large_image",
       title: `${data.name} | ${data.tagline}`,
       description: data.biographyShort,
-      images: ['/images/hero-conducting.jpg'],
+      images: ['/images/og-card.jpg'],
     },
   };
 }
@@ -101,7 +110,10 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} className={`scroll-smooth ${cormorant.variable} ${outfit.variable}`}>
+    <html
+      lang={locale}
+      className={`scroll-smooth ${cormorant.variable} ${outfit.variable} ${locale === 'el' ? gfsDidot.variable : ''}`}
+    >
       <body className="antialiased">
         <script
           type="application/ld+json"
