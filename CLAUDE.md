@@ -39,10 +39,11 @@ When changing any displayed text, update both the `en` and `el` variants of whic
 
 - Most components under `src/components/` are client components (`'use client'`) — they use `framer-motion` for animations and `useTranslations` for labels. Server components are limited to layouts and metadata.
 - Styling is **Tailwind CSS v4** (`@tailwindcss/postcss`) with design tokens defined as CSS custom properties in `src/app/globals.css` (e.g. `--color-accent`, `--font-display`). Components reference tokens via `var(--color-accent)` rather than Tailwind theme keys.
-- `next.config.ts` enables `dangerouslyAllowSVG` for the `next/image` pipeline — still required because `LanguageSwitcher` renders the SVG flag icons through `next/image`.
+- Fonts load via `next/font` in `src/app/[locale]/layout.tsx`, exposed as `--font-cormorant`/`--font-outfit` and consumed through `--font-display`/`--font-body` in `globals.css`. Don't reintroduce Google Fonts CSS imports.
 - Sections render from data: the homepage Videos section returns `null` while `videos` is empty, and Contact hides its "Follow" block while `socialLinks` has no non-email entries. To light them up, add data — don't touch the components.
+- The `[locale]` layout validates the locale and calls `notFound()` for anything else — unknown paths land on the root `src/app/not-found.tsx`, which provides its own `<html>`/`<body>` (the root layout is a passthrough). Keep that invariant when touching layouts.
 
 ### Gotchas
 
 - `*:Zone.Identifier` Windows-download artifacts are gitignored — don't commit new ones if they appear in the working tree (WSL creates them for downloaded files).
-- The contact form only logs to console; there is no backend integration yet.
+- Contact is a mailto CTA by design — a form was removed because it faked success with no backend. Don't add a form back without wiring real delivery.
