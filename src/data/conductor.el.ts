@@ -10,7 +10,7 @@ export const conductorDataEl: ConductorData = {
 
   biography: `Ένας παθιασμένος μαέστρος με εμπειρία σε συμφωνικό, λυρικό και σύγχρονο ρεπερτόριο. Διακρίνεται για τις δυναμικές του ερμηνείες και τη συνεργατική του προσέγγιση στη μουσική δημιουργία.`,
 
-  contactEmail: "evang.stavropoulos@gmail.com",
+  contactEmail: "vagstav97@hotmail.com",
 
   socialLinks: [],
 
