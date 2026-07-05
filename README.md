@@ -1,6 +1,6 @@
 # Conductor Portfolio Website
 
-A sophisticated, dark-themed portfolio website for conductors, built with Next.js 15, TypeScript, and Tailwind CSS. Features elegant typography, smooth animations, and a professional layout inspired by top conductor websites.
+A sophisticated, dark-themed portfolio website for conductors, built with Next.js 16, TypeScript, and Tailwind CSS. Features elegant typography, smooth animations, and a professional layout inspired by top conductor websites.
 
 ## Features
 
@@ -168,7 +168,7 @@ The contact form currently logs to console. To make it functional, integrate wit
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Animations**: Framer Motion

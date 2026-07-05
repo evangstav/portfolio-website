@@ -5,7 +5,3 @@ export const conductorDataByLocale = {
   en: conductorDataEn,
   el: conductorDataEl,
 };
-
-// Default export for backward compatibility
-export const conductorData = conductorDataEn;
-export default conductorData;
