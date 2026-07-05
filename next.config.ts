@@ -5,10 +5,14 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 
 const nextConfig: NextConfig = {
   images: {
-    // Allow SVG placeholders during development
+    // Required for the SVG flag icons rendered via next/image
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    remotePatterns: [
+      // YouTube video thumbnails
+      { protocol: 'https', hostname: 'i.ytimg.com' },
+    ],
   },
 };
 
