@@ -4,12 +4,15 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 
 interface AboutProps {
   biography: string;
+  portraitImage?: string;
+  portraitAlt?: string;
 }
 
-export default function About({ biography }: AboutProps) {
+export default function About({ biography, portraitImage, portraitAlt }: AboutProps) {
   const t = useTranslations('sections');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -19,7 +22,7 @@ export default function About({ biography }: AboutProps) {
 
   return (
     <section id="about" className="py-24 md:py-32 px-6 lg:px-12">
-      <div className="max-w-4xl mx-auto" ref={ref}>
+      <div className="max-w-5xl mx-auto" ref={ref}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -30,25 +33,47 @@ export default function About({ biography }: AboutProps) {
           <div className="flex items-center gap-6 mb-6">
             <div className="h-px flex-1 bg-[var(--color-border)]" />
             <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)]">
-              About
+              {t('about')}
             </h2>
             <div className="h-px flex-1 bg-[var(--color-border)]" />
           </div>
         </motion.div>
 
-        {/* Biography Content */}
-        <div className="space-y-6">
-          {paragraphs.map((paragraph, index) => (
-            <motion.p
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)] font-light"
+        <div className={portraitImage ? 'grid md:grid-cols-5 gap-12 items-center' : ''}>
+          {/* Portrait */}
+          {portraitImage && (
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="md:col-span-2"
             >
-              {paragraph}
-            </motion.p>
-          ))}
+              <div className="relative aspect-[4/5] rounded-lg overflow-hidden">
+                <Image
+                  src={portraitImage}
+                  alt={portraitAlt || ''}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Biography Content */}
+          <div className={`space-y-6 ${portraitImage ? 'md:col-span-3' : ''}`}>
+            {paragraphs.map((paragraph, index) => (
+              <motion.p
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                className="text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)] font-light"
+              >
+                {paragraph}
+              </motion.p>
+            ))}
+          </div>
         </div>
 
         {/* Decorative element */}

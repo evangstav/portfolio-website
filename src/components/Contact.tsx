@@ -64,10 +64,10 @@ export default function Contact({ email, socialLinks }: ContactProps) {
           className="text-center mb-16"
         >
           <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)] mb-4">
-            Get in Touch
+            {t('contact.heading')}
           </h2>
           <p className="text-[var(--color-text-secondary)] max-w-md mx-auto">
-            For booking inquiries, collaborations, or general questions, please reach out.
+            {t('contact.description')}
           </p>
           <div className="w-16 h-px bg-[var(--color-accent)] mx-auto mt-6" />
         </motion.div>
@@ -82,7 +82,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm text-[var(--color-text-muted)] mb-2">
-                  Name
+                  {t('contact.form.name')}
                 </label>
                 <input
                   type="text"
@@ -97,7 +97,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
 
               <div>
                 <label htmlFor="email" className="block text-sm text-[var(--color-text-muted)] mb-2">
-                  Email
+                  {t('contact.form.email')}
                 </label>
                 <input
                   type="email"
@@ -112,7 +112,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
 
               <div>
                 <label htmlFor="subject" className="block text-sm text-[var(--color-text-muted)] mb-2">
-                  Subject
+                  {t('contact.form.subject')}
                 </label>
                 <input
                   type="text"
@@ -127,7 +127,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
 
               <div>
                 <label htmlFor="message" className="block text-sm text-[var(--color-text-muted)] mb-2">
-                  Message
+                  {t('contact.form.message')}
                 </label>
                 <textarea
                   id="message"
@@ -152,12 +152,12 @@ export default function Contact({ email, socialLinks }: ContactProps) {
                 {isSubmitted ? (
                   <>
                     <CheckCircle size={20} />
-                    Message Sent
+                    {t('contact.form.messageSent')}
                   </>
                 ) : (
                   <>
                     <Send size={20} />
-                    Send Message
+                    {t('contact.form.send')}
                   </>
                 )}
               </button>
@@ -174,7 +174,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
             {/* Email */}
             <div className="mb-10">
               <h3 className="text-sm tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-4">
-                Email
+                {t('contact.email')}
               </h3>
               <a
                 href={`mailto:${email}`}
@@ -185,9 +185,10 @@ export default function Contact({ email, socialLinks }: ContactProps) {
             </div>
 
             {/* Social Links */}
+            {socialLinks.some(link => link.platform !== 'email') && (
             <div>
               <h3 className="text-sm tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-4">
-                Follow
+                {t('contact.follow')}
               </h3>
               <div className="flex gap-4">
                 {socialLinks
@@ -209,6 +210,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
                   })}
               </div>
             </div>
+            )}
           </motion.div>
         </div>
       </div>

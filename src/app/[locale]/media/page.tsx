@@ -15,7 +15,9 @@ export default function MediaPage() {
   const locale = useLocale();
   const t = useTranslations();
   const conductorData = useConductorData();
-  const [activeTab, setActiveTab] = useState<MediaTab>('videos');
+  const [activeTab, setActiveTab] = useState<MediaTab>(
+    conductorData.videos.length > 0 ? 'videos' : 'photos'
+  );
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
@@ -106,7 +108,7 @@ export default function MediaPage() {
               }`}
             >
               <VideoIcon size={18} />
-              Videos
+              {t('media.videos')}
             </button>
             <button
               onClick={() => setActiveTab('photos')}
@@ -117,7 +119,7 @@ export default function MediaPage() {
               }`}
             >
               <Camera size={18} />
-              Photos
+              {t('media.photos')}
             </button>
           </motion.div>
 

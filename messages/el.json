@@ -1,8 +1,6 @@
 {
   "navigation": {
-    "biography": "Βιογραφία",
     "media": "Πολυμέσα",
-    "concerts": "Συναυλίες",
     "contact": "Επικοινωνία",
     "back": "Πίσω"
   },
@@ -12,14 +10,7 @@
   "sections": {
     "about": "Σχετικά",
     "videos": "Βίντεο",
-    "concerts": "Συναυλίες",
-    "affiliations": "Συνεργασίες",
-    "press": "Τύπος",
     "media": "Πολυμέσα"
-  },
-  "concerts": {
-    "upcoming": "Επερχόμενες",
-    "pastPerformances": "Προηγούμενες Εμφανίσεις"
   },
   "contact": {
     "heading": "Επικοινωνήστε μαζί μου",
@@ -34,13 +25,6 @@
     },
     "email": "Email",
     "follow": "Ακολουθήστε"
-  },
-  "biography": {
-    "title": "Βιογραφία",
-    "downloadHeading": "Λήψη Βιογραφίας",
-    "downloadDescription": "Για χρήση από τον τύπο και για προωθητικούς σκοπούς, κατεβάστε την πλήρη βιογραφία και φωτογραφίες υψηλής ανάλυσης.",
-    "downloadBio": "Πλήρης Βιογραφία (PDF)",
-    "downloadPhotos": "Φωτογραφίες Τύπου (ZIP)"
   },
   "media": {
     "title": "Πολυμέσα",

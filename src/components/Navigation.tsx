@@ -14,9 +14,7 @@ export default function Navigation({ conductorName }: { conductorName: string })
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: `/biography`, label: t('biography') },
     { href: `/media`, label: t('media') },
-    { href: `/#concerts`, label: t('concerts') },
     { href: `/#contact`, label: t('contact') },
   ];
 
