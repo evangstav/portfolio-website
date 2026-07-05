@@ -10,7 +10,7 @@ export const conductorDataEn: ConductorData = {
 
   biography: `A passionate conductor with experience across symphonic, operatic, and contemporary repertoire. Known for dynamic interpretations and a collaborative approach to music-making.`,
 
-  contactEmail: "evang.stavropoulos@gmail.com",
+  contactEmail: "vagstav97@hotmail.com",
 
   socialLinks: [],
 
