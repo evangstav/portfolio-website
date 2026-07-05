@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { conductorDataByLocale } from '@/data/conductor';
 import { routing } from '@/i18n/routing';
 import MediaGallery from './MediaGallery';
@@ -24,6 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default function MediaPage() {
+export default async function MediaPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <MediaGallery />;
 }

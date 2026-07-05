@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond, GFS_Didot, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import "../globals.css";
@@ -98,6 +98,8 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) {
     notFound();
   }
+  // Opt into static rendering — without this next-intl marks the locale routes dynamic
+  setRequestLocale(locale);
   const messages = await getMessages();
   const data = conductorDataByLocale[locale];
 
