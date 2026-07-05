@@ -1,7 +1,7 @@
 import { ConductorData } from '@/lib/types';
 
 export const conductorDataEn: ConductorData = {
-  name: "Evangelos Stavropoulos",
+  name: "Vaggelis Stavropoulos",
   tagline: "Conductor",
 
   heroImage: "/images/hero-conducting.jpg",
@@ -30,28 +30,28 @@ export const conductorDataEn: ConductorData = {
     {
       id: 'conducting-live',
       src: '/images/hero-conducting.jpg',
-      alt: 'Evangelos Stavropoulos conducting in concert',
+      alt: 'Vaggelis Stavropoulos conducting in concert',
       caption: 'In concert',
       category: 'Performance',
     },
     {
       id: 'piano-color',
       src: '/images/piano-color.jpg',
-      alt: 'Evangelos Stavropoulos at the piano',
+      alt: 'Vaggelis Stavropoulos at the piano',
       caption: 'At the piano',
       category: 'Portrait',
     },
     {
       id: 'piano-bw',
       src: '/images/piano-bw.jpg',
-      alt: 'Evangelos Stavropoulos at the piano, black and white portrait',
+      alt: 'Vaggelis Stavropoulos at the piano, black and white portrait',
       caption: 'At the piano',
       category: 'Portrait',
     },
     {
       id: 'portrait-studio',
       src: '/images/portrait-studio.jpg',
-      alt: 'Studio portrait of Evangelos Stavropoulos',
+      alt: 'Studio portrait of Vaggelis Stavropoulos',
       caption: 'Studio portrait',
       category: 'Portrait',
     },

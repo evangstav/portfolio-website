@@ -1,7 +1,7 @@
 import { ConductorData } from '@/lib/types';
 
 export const conductorDataEl: ConductorData = {
-  name: "Ευάγγελος Σταυρόπουλος",
+  name: "Βαγγέλης Σταυρόπουλος",
   tagline: "Μαέστρος",
 
   heroImage: "/images/hero-conducting.jpg",
@@ -30,28 +30,28 @@ export const conductorDataEl: ConductorData = {
     {
       id: 'conducting-live',
       src: '/images/hero-conducting.jpg',
-      alt: 'Ο Ευάγγελος Σταυρόπουλος διευθύνει σε συναυλία',
+      alt: 'Ο Βαγγέλης Σταυρόπουλος διευθύνει σε συναυλία',
       caption: 'Σε συναυλία',
       category: 'Εμφανίσεις',
     },
     {
       id: 'piano-color',
       src: '/images/piano-color.jpg',
-      alt: 'Ο Ευάγγελος Σταυρόπουλος στο πιάνο',
+      alt: 'Ο Βαγγέλης Σταυρόπουλος στο πιάνο',
       caption: 'Στο πιάνο',
       category: 'Πορτρέτα',
     },
     {
       id: 'piano-bw',
       src: '/images/piano-bw.jpg',
-      alt: 'Ο Ευάγγελος Σταυρόπουλος στο πιάνο, ασπρόμαυρο πορτρέτο',
+      alt: 'Ο Βαγγέλης Σταυρόπουλος στο πιάνο, ασπρόμαυρο πορτρέτο',
       caption: 'Στο πιάνο',
       category: 'Πορτρέτα',
     },
     {
       id: 'portrait-studio',
       src: '/images/portrait-studio.jpg',
-      alt: 'Πορτρέτο στούντιο του Ευάγγελου Σταυρόπουλου',
+      alt: 'Πορτρέτο στούντιο του Βαγγέλη Σταυρόπουλου',
       caption: 'Πορτρέτο στούντιο',
       category: 'Πορτρέτα',
     },

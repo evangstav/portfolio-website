@@ -1,6 +1,6 @@
-# Evangelos Stavropoulos — Conductor Portfolio
+# Vaggelis Stavropoulos — Conductor Portfolio
 
-Portfolio website for conductor Evangelos Stavropoulos. Dark theme with gold accents, built with Next.js 16 (App Router), TypeScript, Tailwind CSS 4, Framer Motion, and next-intl (English / Greek).
+Portfolio website for conductor Vaggelis Stavropoulos. Dark theme with gold accents, built with Next.js 16 (App Router), TypeScript, Tailwind CSS 4, Framer Motion, and next-intl (English / Greek).
 
 ## Pages
 
