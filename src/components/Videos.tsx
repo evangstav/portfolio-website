@@ -1,7 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
@@ -25,7 +25,7 @@ export default function Videos({ videos }: VideosProps) {
 
   return (
     <>
-      <section id="videos" className="py-24 md:py-32 bg-[var(--color-bg-secondary)]">
+      <section id="videos" className="py-24 md:py-32 bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12" ref={ref}>
           {/* Section Header */}
           <motion.div
@@ -48,14 +48,21 @@ export default function Videos({ videos }: VideosProps) {
             </a>
           </motion.div>
 
-          {/* Video Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Video Grid — a lone video gets a centered feature card, not an empty grid */}
+          <div
+            className={
+              videos.length === 1
+                ? 'flex justify-center'
+                : `grid grid-cols-1 md:grid-cols-2 ${videos.length >= 3 ? 'lg:grid-cols-3' : ''} gap-6`
+            }
+          >
             {videos.map((video, index) => (
               <motion.div
                 key={video.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
+                className={videos.length === 1 ? 'w-full max-w-2xl' : ''}
               >
                 <VideoCard video={video} onClick={() => setSelectedVideo(video)} />
               </motion.div>
@@ -75,15 +82,17 @@ export default function Videos({ videos }: VideosProps) {
 }
 
 function VideoCard({ video, onClick }: { video: Video; onClick: () => void }) {
+  const t = useTranslations('media');
   return (
     <button
       onClick={onClick}
+      aria-label={`${t('playVideo')}: ${video.title}`}
       className="group relative w-full aspect-video rounded-lg overflow-hidden bg-[var(--color-bg-card)] card-shine"
     >
-      {/* Thumbnail */}
+      {/* Thumbnail (decorative — the button carries the accessible name) */}
       <Image
         src={video.thumbnailUrl}
-        alt={video.title}
+        alt=""
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-105"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -122,6 +131,22 @@ function VideoCard({ video, onClick }: { video: Video; onClick: () => void }) {
 }
 
 function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Escape closes; focus moves into the dialog on open and back on unmount
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [onClose]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -130,6 +155,9 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={video.title}
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/95" />
@@ -145,6 +173,7 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
       >
         {/* Close Button */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
           className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition-colors"
           aria-label="Close video"

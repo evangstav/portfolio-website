@@ -47,5 +47,6 @@ Deployed on Vercel; pushes to `main` deploy automatically.
 
 ## Not yet wired up
 
-- The contact form only logs to the console (integrate Resend/Formspree to make it send).
+- Contact is a mailto link by design (no form backend exists; add one before reintroducing a form).
 - Full biography text and social media links are pending.
+- Set `NEXT_PUBLIC_SITE_URL` in production once a custom domain exists (used for canonical URLs, sitemap, and structured data).

@@ -39,16 +39,15 @@ export default function About({ biography, portraitImage, portraitAlt }: AboutPr
           </div>
         </motion.div>
 
-        <div className={portraitImage ? 'grid md:grid-cols-5 gap-12 items-center' : ''}>
+        <div className={portraitImage ? 'grid md:grid-cols-2 gap-12 md:gap-16 items-center' : ''}>
           {/* Portrait */}
           {portraitImage && (
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="md:col-span-2"
             >
-              <div className="relative aspect-[4/5] rounded-lg overflow-hidden">
+              <div className="relative aspect-[4/5] max-w-md mx-auto md:mx-0 md:ml-auto rounded-lg overflow-hidden">
                 <Image
                   src={portraitImage}
                   alt={portraitAlt || ''}
@@ -61,14 +60,14 @@ export default function About({ biography, portraitImage, portraitAlt }: AboutPr
           )}
 
           {/* Biography Content */}
-          <div className={`space-y-6 ${portraitImage ? 'md:col-span-3' : ''}`}>
+          <div className="space-y-6 max-w-prose">
             {paragraphs.map((paragraph, index) => (
               <motion.p
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                className="text-lg md:text-xl leading-relaxed text-[var(--color-text-secondary)] font-light"
+                className="text-lg md:text-xl leading-relaxed text-[var(--color-text-primary)] font-light"
               >
                 {paragraph}
               </motion.p>

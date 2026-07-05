@@ -2,7 +2,11 @@
 
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
-import Image from 'next/image';
+
+const locales = [
+  { code: 'en', label: 'EN', ariaLabel: 'Switch to English' },
+  { code: 'el', label: 'ΕΛ', ariaLabel: 'Αλλαγή στα Ελληνικά' },
+];
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
@@ -10,42 +14,32 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
 
   const switchLocale = (newLocale: string) => {
-    // Remove current locale from pathname and add new one
+    // Remove current locale from pathname and add new one, keeping any #hash
     const segments = pathname.split('/').filter(Boolean);
     const pathWithoutLocale = segments.slice(1).join('/');
     const newPath = pathWithoutLocale ? `/${newLocale}/${pathWithoutLocale}` : `/${newLocale}`;
-    router.push(newPath);
+    router.push(`${newPath}${window.location.hash}`);
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => switchLocale('en')}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all duration-300 ${
-          locale === 'en'
-            ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10'
-            : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
-        }`}
-        aria-label="Switch to English"
-      >
-        <Image src="/flags/us.svg" alt="US Flag" width={20} height={14} className="rounded-sm" />
-        <span className="text-sm font-medium">EN</span>
-      </button>
-
-      <span className="text-[var(--color-text-muted)]">|</span>
-
-      <button
-        onClick={() => switchLocale('el')}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md transition-all duration-300 ${
-          locale === 'el'
-            ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10'
-            : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
-        }`}
-        aria-label="Switch to Greek"
-      >
-        <Image src="/flags/gr.svg" alt="Greek Flag" width={20} height={14} className="rounded-sm" />
-        <span className="text-sm font-medium">ΕΛ</span>
-      </button>
+    <div className="flex items-center">
+      {locales.map((l, index) => (
+        <span key={l.code} className="flex items-center">
+          {index > 0 && <span className="text-white/30 mx-1">|</span>}
+          <button
+            onClick={() => switchLocale(l.code)}
+            className={`min-h-11 min-w-11 px-2 text-sm tracking-wider transition-colors duration-300 ${
+              locale === l.code
+                ? 'text-[var(--color-accent)] border-b border-[var(--color-accent)]'
+                : 'text-white/70 hover:text-white'
+            }`}
+            aria-label={l.ariaLabel}
+            aria-current={locale === l.code ? 'true' : undefined}
+          >
+            {l.label}
+          </button>
+        </span>
+      ))}
     </div>
   );
 }
