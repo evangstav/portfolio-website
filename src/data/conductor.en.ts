@@ -15,7 +15,14 @@ export const conductorDataEn: ConductorData = {
   socialLinks: [],
 
   // Videos - YouTube embed URLs (https://www.youtube.com/embed/VIDEO_ID)
-  videos: [],
+  videos: [
+    {
+      id: 'concert-rehearsal-compilation',
+      title: 'Concert and Rehearsal Compilation',
+      thumbnailUrl: 'https://i.ytimg.com/vi/HBpDGP7ak2M/hqdefault.jpg',
+      videoUrl: 'https://www.youtube.com/embed/HBpDGP7ak2M',
+    },
+  ],
 
   gallery: [
     {

@@ -15,7 +15,14 @@ export const conductorDataEl: ConductorData = {
   socialLinks: [],
 
   // Βίντεο - YouTube embed URLs (https://www.youtube.com/embed/VIDEO_ID)
-  videos: [],
+  videos: [
+    {
+      id: 'concert-rehearsal-compilation',
+      title: 'Στιγμιότυπα από Συναυλίες και Πρόβες',
+      thumbnailUrl: 'https://i.ytimg.com/vi/HBpDGP7ak2M/hqdefault.jpg',
+      videoUrl: 'https://www.youtube.com/embed/HBpDGP7ak2M',
+    },
+  ],
 
   gallery: [
     {
