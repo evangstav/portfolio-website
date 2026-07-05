@@ -4,8 +4,6 @@ import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Videos from '@/components/Videos';
-import Concerts from '@/components/Concerts';
-import Affiliations from '@/components/Affiliations';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { useConductorData } from '@/lib/useConductorData';
@@ -27,13 +25,13 @@ export default function Home() {
           heroImage={conductorData.heroImage}
         />
 
-        <About biography={conductorData.biography} />
+        <About
+          biography={conductorData.biography}
+          portraitImage="/images/piano-bw.jpg"
+          portraitAlt={conductorData.name}
+        />
 
         <Videos videos={conductorData.videos} />
-
-        <Concerts concerts={conductorData.concerts} />
-
-        <Affiliations affiliations={conductorData.affiliations} />
 
         <Contact
           email={conductorData.contactEmail}

@@ -1,8 +1,6 @@
 {
   "navigation": {
-    "biography": "Biography",
     "media": "Media",
-    "concerts": "Concerts",
     "contact": "Contact",
     "back": "Back"
   },
@@ -12,14 +10,7 @@
   "sections": {
     "about": "About",
     "videos": "Videos",
-    "concerts": "Concerts",
-    "affiliations": "Affiliations",
-    "press": "Press",
     "media": "Media"
-  },
-  "concerts": {
-    "upcoming": "Upcoming",
-    "pastPerformances": "Past Performances"
   },
   "contact": {
     "heading": "Get in Touch",
@@ -34,13 +25,6 @@
     },
     "email": "Email",
     "follow": "Follow"
-  },
-  "biography": {
-    "title": "Biography",
-    "downloadHeading": "Download Biography",
-    "downloadDescription": "For press and promotional use, download the full biography and high-resolution photos.",
-    "downloadBio": "Full Biography (PDF)",
-    "downloadPhotos": "Press Photos (ZIP)"
   },
   "media": {
     "title": "Media",

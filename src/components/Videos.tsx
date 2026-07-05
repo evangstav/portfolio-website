@@ -19,6 +19,10 @@ export default function Videos({ videos }: VideosProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  if (videos.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <section id="videos" className="py-24 md:py-32 bg-[var(--color-bg-secondary)]">
