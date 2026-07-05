@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Cormorant_Garamond, GFS_Didot, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { Analytics } from '@vercel/analytics/next';
 import "../globals.css";
 import { conductorDataByLocale } from "@/data/conductor";
 import { routing } from "@/i18n/routing";
@@ -122,6 +123,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <MotionProvider>{children}</MotionProvider>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
