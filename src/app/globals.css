@@ -13,17 +13,17 @@
   --color-border: #2a2a2e;
   --color-border-subtle: #1f1f22;
   
-  /* Families provided by next/font in src/app/[locale]/layout.tsx */
+  /* Families provided by next/font in src/lib/fonts.ts */
   --font-display: var(--font-cormorant), Georgia, serif;
   --font-body: var(--font-outfit), system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 /* Greek pages: use a calmer Greek-capable display serif instead of Cormorant's fallback */
 html[lang='el'] {
   --font-display: var(--font-noto-serif-greek), Georgia, serif;
-  
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 @theme inline {
@@ -101,6 +101,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-bg-primary);
 }
 
+/* One focus treatment site-wide; inputs opt out in favor of their accent border */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -111,6 +117,17 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 9999;
   opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  /* Rasterize the turbulence filter once at 256px and tile it; without this the
+     SVG is rendered at full viewport resolution on every load/resize */
+  background-size: 256px 256px;
+  background-repeat: repeat;
+}
+
+/* At 2% opacity the texture is invisible on small screens — skip the layer */
+@media (max-width: 768px) {
+  .noise-overlay {
+    display: none;
+  }
 }
 
 .gradient-line {
@@ -143,9 +160,115 @@ h1, h2, h3, h4, h5, h6 {
     rgba(255, 255, 255, 0.03) 50%,
     transparent 100%
   );
-  transition: left 0.6s var(--ease-out-expo);
+  /* transform keeps the sweep on the compositor (animating `left` forces layout) */
+  transition: transform 0.6s var(--ease-out-expo);
 }
 
 .card-shine:hover::before {
-  left: 100%;
+  transform: translateX(200%);
+}
+
+/* Hero scroll indicator: CSS keyframes instead of a per-frame JS animation loop */
+@keyframes scroll-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.scroll-bob {
+  animation: scroll-bob 2s ease-in-out infinite;
+}
+
+/* Entrance animations run in CSS so server-rendered content is never gated on
+   JS hydration — with scripts blocked or still downloading, the animation
+   plays anyway and text is visible from first paint. Stagger with
+   [animation-delay:...] utilities or an inline animation-delay. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+}
+
+.anim-fade-in {
+  animation: fade-in 0.8s ease-out both;
+}
+
+.anim-grow-x {
+  transform-origin: left;
+  animation: grow-x 0.8s var(--ease-out-expo) both;
+}
+
+.anim-slide-down {
+  animation: slide-down 0.8s var(--ease-out-expo) both;
+}
+
+/* Anchor targets land below the fixed 80px header instead of underneath it */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Modal chrome (close button, image counter) sits inside the dialog frame by
+   default so it can never clip off-screen; it only moves outside the frame
+   when the viewport is verifiably wide AND tall enough. */
+.dialog-close {
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-counter {
+  bottom: 0.5rem;
+}
+
+@media (min-width: 640px) and (min-height: 520px) {
+  .dialog-close {
+    top: -3rem;
+    right: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .dialog-counter {
+    bottom: -2.5rem;
+  }
 }

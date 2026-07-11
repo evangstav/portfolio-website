@@ -16,14 +16,30 @@ export function useModalA11y({
   const containerRef = useRef<HTMLDivElement>(null);
   const initialFocusRef = useRef<HTMLButtonElement>(null);
 
+  // Callers pass inline callbacks whose identity changes every render (e.g.
+  // lightbox prev/next). Read them through refs so the mount effect below runs
+  // exactly once per dialog open — otherwise each keypress would tear down the
+  // effect, restore focus to the background trigger, then re-focus the close
+  // button.
+  const onCloseRef = useRef(onClose);
+  const onArrowRef = useRef(onArrow);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+    onArrowRef.current = onArrow;
+  });
+
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
     initialFocusRef.current?.focus();
 
+    // Lock background scroll while the dialog is open (matches the mobile menu)
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onArrow?.('prev');
-      if (e.key === 'ArrowRight') onArrow?.('next');
+      if (e.key === 'Escape') onCloseRef.current();
+      if (e.key === 'ArrowLeft') onArrowRef.current?.('prev');
+      if (e.key === 'ArrowRight') onArrowRef.current?.('next');
       if (e.key === 'Tab') {
         const container = containerRef.current;
         if (!container) return;
@@ -49,9 +65,10 @@ export function useModalA11y({
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus();
     };
-  }, [onClose, onArrow]);
+  }, []);
 
   return { containerRef, initialFocusRef };
 }

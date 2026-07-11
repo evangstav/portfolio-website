@@ -1,8 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { useActionState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useActionState } from 'react';
 import { Mail, Instagram, Youtube, Facebook, Linkedin, Twitter } from 'lucide-react';
 import { SocialLink } from '@/lib/types';
 import { sendContactEmail, type ContactFormState } from '@/lib/contactAction';
@@ -21,21 +20,15 @@ const socialIcons = {
   email: Mail,
 };
 
+// Entrance animations are CSS (globals.css) so the section is visible pre-hydration.
 export default function Contact({ email, socialLinks }: ContactProps) {
   const t = useTranslations();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="contact" className="py-24 md:py-32" ref={ref}>
+    <section id="contact" className="py-24 md:py-32">
       <div className="max-w-3xl mx-auto px-6 lg:px-12 text-center">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
-        >
+        <div className="anim-fade-up mb-12">
           <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)] mb-4">
             {t('contact.heading')}
           </h2>
@@ -43,24 +36,15 @@ export default function Contact({ email, socialLinks }: ContactProps) {
             {t('contact.description')}
           </p>
           <div className="w-16 h-px bg-[var(--color-accent)] mx-auto mt-6" />
-        </motion.div>
+        </div>
 
         {/* Contact form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
+        <div className="anim-fade-up [animation-delay:200ms]">
           <ContactForm />
-        </motion.div>
+        </div>
 
         {/* Direct email fallback */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-10 flex flex-col items-center gap-2"
-        >
+        <div className="anim-fade-in [animation-delay:300ms] mt-10 flex flex-col items-center gap-2">
           <span className="text-sm text-[var(--color-text-muted)]">
             {t('contact.form.orEmail')}
           </span>
@@ -71,16 +55,11 @@ export default function Contact({ email, socialLinks }: ContactProps) {
             <Mail size={20} />
             {email}
           </a>
-        </motion.div>
+        </div>
 
         {/* Social Links */}
         {socialLinks.some(link => link.platform !== 'email') && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-14"
-          >
+          <div className="anim-fade-in [animation-delay:400ms] mt-14">
             <h3 className="text-sm tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-4">
               {t('contact.follow')}
             </h3>
@@ -103,7 +82,7 @@ export default function Contact({ email, socialLinks }: ContactProps) {
                   );
                 })}
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

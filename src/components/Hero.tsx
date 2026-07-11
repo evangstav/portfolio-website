@@ -1,7 +1,6 @@
 'use client';
 import { useLocale, useTranslations } from 'next-intl';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 
@@ -10,6 +9,8 @@ interface HeroProps {
   heroImage: string;
 }
 
+// All entrance animations here are CSS (see globals.css) so the name and
+// scroll cue are visible from first paint, not gated on JS hydration.
 export default function Hero({ name, heroImage }: HeroProps) {
   const t = useTranslations('hero');
   const locale = useLocale();
@@ -21,7 +22,8 @@ export default function Hero({ name, heroImage }: HeroProps) {
       : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide leading-none';
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    /* svh keeps the bottom-anchored content above mobile browser chrome */
+    <section className="relative h-svh w-full overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <Image
@@ -39,20 +41,10 @@ export default function Hero({ name, heroImage }: HeroProps) {
       </div>
 
       {/* Content — anchored to the darker lower-left negative space, off the subject */}
-      <div className="relative h-full flex flex-col items-start justify-end pb-28 md:pb-36 px-6 lg:px-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="text-left max-w-3xl"
-        >
+      <div className="relative h-full flex flex-col items-start justify-end pb-28 md:pb-36 px-6 lg:px-12">
+        <div className="anim-fade-up [animation-delay:300ms] [animation-duration:1s] text-left max-w-3xl">
           {/* Decorative line above */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="w-16 h-px bg-[var(--color-accent)] mb-8 origin-left"
-          />
+          <div className="anim-grow-x [animation-delay:500ms] w-16 h-px bg-[var(--color-accent)] mb-8" />
 
           {/* Name */}
           <h1
@@ -60,25 +52,16 @@ export default function Hero({ name, heroImage }: HeroProps) {
           >
             {name}
           </h1>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-2 text-white/60"
-        >
+      <div className="anim-fade-in [animation-delay:1.5s] absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="scroll-bob flex flex-col items-center gap-2 text-white/60">
           <span className="text-xs tracking-widest uppercase">{t('scroll')}</span>
           <ChevronDown size={20} />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

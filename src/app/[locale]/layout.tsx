@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond, Noto_Serif, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { Analytics } from '@vercel/analytics/next';
@@ -9,30 +8,8 @@ import "../globals.css";
 import { conductorDataByLocale } from "@/data/conductor";
 import { routing } from "@/i18n/routing";
 import { siteUrl } from "@/lib/siteUrl";
+import { cormorant, notoSerifGreek, outfit } from "@/lib/fonts";
 import MotionProvider from "@/components/MotionProvider";
-
-// Greek text falls back to the serif/sans stacks (neither face ships a greek subset)
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-outfit",
-});
-
-// Greek display serif — Cormorant has no greek subset, so el headings use a
-// steadier Greek-capable serif instead of a decorative Didot face.
-const notoSerifGreek = Noto_Serif({
-  subsets: ["greek", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-noto-serif-greek",
-  preload: false,
-});
 
 type Locale = (typeof routing.locales)[number];
 

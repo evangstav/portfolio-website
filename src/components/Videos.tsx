@@ -1,24 +1,24 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import Image from 'next/image';
+import { useState } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { useLocale } from 'next-intl';
-import { Play, X, ChevronRight } from 'lucide-react';
+import { X, ChevronRight } from 'lucide-react';
 import { Video } from '@/lib/types';
 import { useModalA11y } from '@/lib/useModalA11y';
+import VideoCard from './VideoCard';
 
 interface VideosProps {
   videos: Video[];
 }
 
+// Entrance animations are CSS (globals.css) so cards are visible pre-hydration.
 export default function Videos({ videos }: VideosProps) {
   const locale = useLocale();
   const t = useTranslations();
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   if (videos.length === 0) {
     return null;
@@ -27,27 +27,22 @@ export default function Videos({ videos }: VideosProps) {
   return (
     <>
       <section id="videos" className="py-24 md:py-32 bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12" ref={ref}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-between mb-12"
-          >
+          <div className="anim-fade-up flex items-center justify-between mb-12">
             <div className="flex items-center gap-6">
               <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[var(--color-text-primary)]">
                 {t('sections.videos')}
               </h2>
               <div className="hidden sm:block h-px w-24 bg-[var(--color-border)]" />
             </div>
-            <a
+            <Link
               href={`/${locale}/media`}
               className="flex items-center gap-2 text-sm tracking-wider uppercase text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
             >
               {t('common.viewAll')} <ChevronRight size={16} />
-            </a>
-          </motion.div>
+            </Link>
+          </div>
 
           {/* Video Grid — a lone video gets a centered feature card, not an empty grid */}
           <div
@@ -58,15 +53,13 @@ export default function Videos({ videos }: VideosProps) {
             }
           >
             {videos.map((video, index) => (
-              <motion.div
+              <div
                 key={video.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className={videos.length === 1 ? 'w-full max-w-2xl' : ''}
+                className={`anim-fade-up ${videos.length === 1 ? 'w-full max-w-2xl' : ''}`}
+                style={{ animationDelay: `${100 * index}ms` }}
               >
                 <VideoCard video={video} onClick={() => setSelectedVideo(video)} />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -82,61 +75,12 @@ export default function Videos({ videos }: VideosProps) {
   );
 }
 
-function VideoCard({ video, onClick }: { video: Video; onClick: () => void }) {
-  const t = useTranslations('media');
-  return (
-    <button
-      onClick={onClick}
-      aria-label={`${t('playVideo')}: ${video.title}`}
-      className="group relative w-full aspect-video rounded-lg overflow-hidden bg-[var(--color-bg-card)] card-shine"
-    >
-      {/* Thumbnail (decorative — the button carries the accessible name) */}
-      <Image
-        src={video.thumbnailUrl}
-        alt=""
-        fill
-        className="object-cover transition-transform duration-700 group-hover:scale-105"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-      {/* Play Button */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-[var(--color-accent)]/90 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-500 group-hover:bg-[var(--color-accent)]">
-          <Play size={28} className="text-[var(--color-bg-primary)] ml-1" fill="currentColor" />
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="absolute bottom-0 left-0 right-0 p-5">
-        <h3 className="font-[family-name:var(--font-display)] text-xl text-white mb-1">
-          {video.title}
-        </h3>
-        {video.subtitle && (
-          <p className="text-sm text-white/70">{video.subtitle}</p>
-        )}
-        <div className="flex items-center gap-3 mt-3 text-xs text-white/50">
-          {video.duration && <span>{video.duration}</span>}
-          {video.ensemble && (
-            <>
-              <span>•</span>
-              <span>{video.ensemble}</span>
-            </>
-          )}
-        </div>
-      </div>
-    </button>
-  );
-}
-
 function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
   const t = useTranslations('media');
   const { containerRef, initialFocusRef } = useModalA11y({ onClose });
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -151,7 +95,7 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
       <div className="absolute inset-0 bg-black/95" />
 
       {/* Modal Content */}
-      <motion.div
+      <m.div
         ref={containerRef}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -160,11 +104,12 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
         className="relative w-full max-w-5xl z-10"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button — .dialog-close keeps it inside the frame on viewports
+            too small for the above-frame offset to stay on screen */}
         <button
           ref={initialFocusRef}
           onClick={onClose}
-          className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition-colors"
+          className="dialog-close absolute z-20 p-2 text-white/60 hover:text-white transition-colors"
           aria-label={t('closeVideo')}
         >
           <X size={28} />
@@ -193,7 +138,7 @@ function VideoModal({ video, onClose }: { video: Video; onClose: () => void }) {
             <p className="text-sm text-[var(--color-text-muted)] mt-2">{video.ensemble}</p>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

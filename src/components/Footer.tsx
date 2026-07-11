@@ -1,7 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { motion } from 'framer-motion';
 import { Instagram, Youtube, Facebook, Linkedin, Twitter, Mail } from 'lucide-react';
 import { SocialLink } from '@/lib/types';
 
@@ -28,22 +27,12 @@ export default function Footer({ conductorName, socialLinks }: FooterProps) {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Name / Logo */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="font-[family-name:var(--font-display)] text-xl text-[var(--color-text-secondary)]"
-          >
+          <div className="font-[family-name:var(--font-display)] text-xl text-[var(--color-text-secondary)]">
             {conductorName}
-          </motion.div>
+          </div>
 
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex gap-4"
-          >
+          <div className="flex gap-4">
             {socialLinks
               .filter(link => link.platform !== 'email')
               .map((link) => {
@@ -61,17 +50,12 @@ export default function Footer({ conductorName, socialLinks }: FooterProps) {
                   </a>
                 );
               })}
-          </motion.div>
+          </div>
 
           {/* Copyright */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm text-[var(--color-text-muted)]"
-          >
+          <p className="text-sm text-[var(--color-text-muted)]">
             © {currentYear} {conductorName}. {t('allRightsReserved')}.
-          </motion.p>
+          </p>
         </div>
       </div>
     </footer>
