@@ -21,7 +21,6 @@ export default function Home() {
       <main>
         <Hero
           name={conductorData.name}
-          tagline={conductorData.tagline}
           heroImage={conductorData.heroImage}
         />
 
