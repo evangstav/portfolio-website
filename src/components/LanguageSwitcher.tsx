@@ -25,13 +25,13 @@ export default function LanguageSwitcher() {
     <div className="flex items-center">
       {locales.map((l, index) => (
         <span key={l.code} className="flex items-center">
-          {index > 0 && <span className="text-white/30 mx-1">|</span>}
+          {index > 0 && <span className="text-[var(--color-border)] mx-1">|</span>}
           <button
             onClick={() => switchLocale(l.code)}
             className={`min-h-11 min-w-11 px-2 text-sm tracking-wider transition-colors duration-300 ${
               locale === l.code
                 ? 'text-[var(--color-accent)] border-b border-[var(--color-accent)]'
-                : 'text-white/70 hover:text-white'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
             }`}
             aria-label={l.ariaLabel}
             aria-current={locale === l.code ? 'true' : undefined}

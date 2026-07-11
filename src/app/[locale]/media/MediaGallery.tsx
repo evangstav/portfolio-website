@@ -9,6 +9,7 @@ import { Play, X, ArrowLeft, ChevronLeft, ChevronRight, Camera, Video as VideoIc
 import { useConductorData } from '@/lib/useConductorData';
 import { Video, GalleryImage } from '@/lib/types';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import Footer from '@/components/Footer';
 import { useModalA11y } from '@/lib/useModalA11y';
 
 type MediaTab = 'videos' | 'photos';
@@ -179,7 +180,7 @@ export default function MediaGallery() {
                       <button
                         onClick={() => setSelectedVideo(video)}
                         aria-label={`${t('media.playVideo')}: ${video.title}`}
-                        className="group relative w-full aspect-video rounded-xl overflow-hidden bg-[var(--color-bg-card)] card-shine"
+                        className="group relative w-full aspect-video rounded-lg overflow-hidden bg-[var(--color-bg-card)] card-shine"
                       >
                         <Image
                           src={video.thumbnailUrl}
@@ -266,7 +267,7 @@ export default function MediaGallery() {
                     >
                       <button
                         onClick={() => openImage(photo, index)}
-                        className="group relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-[var(--color-bg-card)]"
+                        className="group relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-[var(--color-bg-card)]"
                       >
                         <Image
                           src={photo.src}
@@ -382,14 +383,10 @@ export default function MediaGallery() {
         )}
       </AnimatePresence>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-[var(--color-border-subtle)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-          <p className="text-sm text-[var(--color-text-muted)]">
-            © {new Date().getFullYear()} {conductorData.name}. {t('common.allRightsReserved')}.
-          </p>
-        </div>
-      </footer>
+      <Footer
+        conductorName={conductorData.name}
+        socialLinks={conductorData.socialLinks}
+      />
     </div>
   );
 }

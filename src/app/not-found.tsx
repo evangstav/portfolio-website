@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import './globals.css';
+import { cormorant, outfit } from '@/lib/fonts';
 
 // Root 404 boundary: renders outside the [locale] layout (which is a passthrough),
 // so it must provide its own <html>/<body>. Bilingual since the locale is unknown here.
 export default function NotFound() {
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorant.variable} ${outfit.variable}`}>
       <body className="antialiased">
         <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-[var(--color-bg-primary)]">
           <p className="font-[family-name:var(--font-display)] text-7xl text-[var(--color-accent)] mb-6">

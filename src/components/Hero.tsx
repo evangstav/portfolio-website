@@ -63,21 +63,18 @@ export default function Hero({ name, heroImage }: HeroProps) {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — the bob runs as a CSS animation (see .scroll-bob in
+          globals.css) so no JS animation loop stays alive for the page's lifetime */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-2 text-white/60"
-        >
+        <div className="scroll-bob flex flex-col items-center gap-2 text-white/60">
           <span className="text-xs tracking-widest uppercase">{t('scroll')}</span>
           <ChevronDown size={20} />
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );
