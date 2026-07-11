@@ -46,7 +46,7 @@ When changing any displayed text, update both the `en` and `el` variants of whic
 ### Gotchas
 
 - `*:Zone.Identifier` Windows-download artifacts are gitignored — don't commit new ones if they appear in the working tree (WSL creates them for downloaded files).
-- Contact is a mailto CTA by design — a form was removed because it faked success with no backend. Don't add a form back without wiring real delivery.
+- The contact form sends via Resend through the `sendContactEmail` server action (`src/lib/contactAction.ts`). It needs `RESEND_API_KEY` (see `.env.example`); without it the form reports an honest "could not be sent" error and points at the mailto fallback. An earlier form was removed for faking success with no backend — never reintroduce a success state that isn't backed by actual delivery.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:6cd5cc61 -->
 ## Beads Issue Tracker

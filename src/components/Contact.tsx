@@ -1,10 +1,11 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { useRef } from 'react';
+import { useActionState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Mail, Instagram, Youtube, Facebook, Linkedin, Twitter } from 'lucide-react';
 import { SocialLink } from '@/lib/types';
+import { sendContactEmail, type ContactFormState } from '@/lib/contactAction';
 
 interface ContactProps {
   email: string;
@@ -44,24 +45,30 @@ export default function Contact({ email, socialLinks }: ContactProps) {
           <div className="w-16 h-px bg-[var(--color-accent)] mx-auto mt-6" />
         </motion.div>
 
-        {/* Email CTA */}
+        {/* Contact form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col items-center gap-6"
         >
+          <ContactForm />
+        </motion.div>
+
+        {/* Direct email fallback */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-10 flex flex-col items-center gap-2"
+        >
+          <span className="text-sm text-[var(--color-text-muted)]">
+            {t('contact.form.orEmail')}
+          </span>
           <a
             href={`mailto:${email}`}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg-primary)] font-medium tracking-wide hover:bg-[var(--color-accent-hover)] transition-colors duration-300"
+            className="inline-flex items-center gap-2 font-[family-name:var(--font-display)] text-xl md:text-2xl text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors break-all"
           >
             <Mail size={20} />
-            {t('contact.cta')}
-          </a>
-          <a
-            href={`mailto:${email}`}
-            className="font-[family-name:var(--font-display)] text-xl md:text-2xl text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors break-all"
-          >
             {email}
           </a>
         </motion.div>
@@ -100,5 +107,104 @@ export default function Contact({ email, socialLinks }: ContactProps) {
         )}
       </div>
     </section>
+  );
+}
+
+const inputClasses =
+  'w-full rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] px-4 py-3 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-accent)] focus:outline-none transition-colors';
+
+function ContactForm() {
+  const t = useTranslations('contact.form');
+  const initialState: ContactFormState = { status: 'idle' };
+  const [state, formAction, isPending] = useActionState(sendContactEmail, initialState);
+
+  if (state.status === 'success') {
+    return (
+      <p
+        role="status"
+        className="max-w-xl mx-auto rounded-lg border border-[var(--color-accent)] px-6 py-5 text-[var(--color-text-primary)]"
+      >
+        {t('success')}
+      </p>
+    );
+  }
+
+  const values = state.status === 'error' ? state.values : undefined;
+
+  return (
+    <form action={formAction} className="max-w-xl mx-auto text-left space-y-4">
+      {/* Honeypot — hidden from real users, catches naive bots */}
+      <input
+        type="text"
+        name="company"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="hidden"
+      />
+
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="contact-name" className="block text-xs tracking-wider uppercase text-[var(--color-text-muted)] mb-2">
+            {t('name')}
+          </label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            required
+            maxLength={200}
+            defaultValue={values?.name}
+            className={inputClasses}
+          />
+        </div>
+        <div>
+          <label htmlFor="contact-email" className="block text-xs tracking-wider uppercase text-[var(--color-text-muted)] mb-2">
+            {t('email')}
+          </label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            required
+            maxLength={320}
+            defaultValue={values?.email}
+            className={inputClasses}
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="contact-message" className="block text-xs tracking-wider uppercase text-[var(--color-text-muted)] mb-2">
+          {t('message')}
+        </label>
+        <textarea
+          id="contact-message"
+          name="message"
+          required
+          maxLength={5000}
+          rows={5}
+          defaultValue={values?.message}
+          className={`${inputClasses} resize-y`}
+        />
+      </div>
+
+      {state.status === 'error' && (
+        <p role="alert" className="text-sm text-[var(--color-accent)]">
+          {state.code === 'invalid' ? t('errorInvalid') : t('errorUnavailable')}
+        </p>
+      )}
+
+      <div className="text-center pt-2">
+        <button
+          type="submit"
+          disabled={isPending}
+          className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg-primary)] font-medium tracking-wide hover:bg-[var(--color-accent-hover)] transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <Mail size={20} />
+          {isPending ? t('sending') : t('send')}
+        </button>
+      </div>
+    </form>
   );
 }
