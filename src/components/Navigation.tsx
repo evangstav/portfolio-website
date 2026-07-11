@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import LanguageSwitcher from './LanguageSwitcher';
 
-export default function Navigation({ conductorName }: { conductorName: string }) {
+export default function Navigation() {
   const locale = useLocale();
   const t = useTranslations('navigation');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,7 +42,6 @@ export default function Navigation({ conductorName }: { conductorName: string })
 
   // Over the hero the header is transparent: a scrim + brighter links keep it legible
   const linkColor = isScrolled ? 'text-[var(--color-text-secondary)]' : 'text-white/90';
-  const logoSize = locale === 'el' ? 'text-lg sm:text-2xl' : 'text-2xl';
 
   return (
     <>
@@ -58,14 +57,14 @@ export default function Navigation({ conductorName }: { conductorName: string })
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
-            {/* Logo / Name */}
+            {/* Home link */}
             <Link
               href={`/${locale}`}
-              className={`font-[family-name:var(--font-display)] ${logoSize} tracking-wide hover:text-[var(--color-accent)] transition-colors duration-300 ${
+              className={`font-[family-name:var(--font-display)] text-2xl tracking-wide hover:text-[var(--color-accent)] transition-colors duration-300 ${
                 isScrolled ? 'text-[var(--color-text-primary)]' : 'text-white'
               }`}
             >
-              {conductorName}
+              {t('home')}
             </Link>
 
             {/* Desktop Navigation */}
