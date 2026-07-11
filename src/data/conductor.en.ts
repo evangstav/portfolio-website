@@ -38,28 +38,24 @@ He holds a Bachelor’s Degree in Orchestra Conducting from the Department of Mu
       src: '/images/hero-conducting.jpg',
       alt: 'Vaggelis Stavropoulos conducting in concert',
       caption: 'In concert',
-      category: 'Performance',
     },
     {
       id: 'piano-color',
       src: '/images/piano-color.jpg',
       alt: 'Vaggelis Stavropoulos at the piano',
       caption: 'At the piano',
-      category: 'Portrait',
     },
     {
       id: 'piano-bw',
       src: '/images/piano-bw.jpg',
       alt: 'Vaggelis Stavropoulos at the piano, black and white portrait',
       caption: 'At the piano',
-      category: 'Portrait',
     },
     {
       id: 'portrait-studio',
       src: '/images/portrait-studio.jpg',
       alt: 'Studio portrait of Vaggelis Stavropoulos',
       caption: 'Studio portrait',
-      category: 'Portrait',
     },
   ],
 };
