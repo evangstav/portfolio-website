@@ -73,13 +73,6 @@ export default function MediaGallery() {
             <span className="text-sm tracking-wider uppercase">{t('navigation.back')}</span>
           </Link>
 
-          <Link
-            href={`/${locale}`}
-            className="hidden sm:block font-[family-name:var(--font-display)] text-2xl tracking-wide text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
-          >
-            {conductorData.name}
-          </Link>
-
           <div className="flex items-center gap-6">
             <Link
               href={`/${locale}/#contact`}

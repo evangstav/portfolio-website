@@ -16,7 +16,7 @@ export default function Home() {
       {/* Noise overlay for texture */}
       <div className="noise-overlay" />
 
-      <Navigation conductorName={conductorData.name} />
+      <Navigation />
 
       <main>
         <Hero

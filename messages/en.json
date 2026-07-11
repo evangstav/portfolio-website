@@ -1,5 +1,7 @@
 {
   "navigation": {
+    "home": "Home",
+    "about": "About",
     "media": "Media",
     "contact": "Contact",
     "back": "Back",
@@ -17,7 +19,18 @@
     "heading": "Get in Touch",
     "description": "For booking inquiries, collaborations, or general questions, please reach out.",
     "cta": "Send an email",
-    "follow": "Follow"
+    "follow": "Follow",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send message",
+      "sending": "Sending…",
+      "success": "Thank you — your message has been sent.",
+      "errorInvalid": "Please fill in all fields with a valid email address.",
+      "errorUnavailable": "The message could not be sent right now — please use the email address below instead.",
+      "orEmail": "or email directly"
+    }
   },
   "media": {
     "title": "Media",

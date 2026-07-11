@@ -111,6 +111,9 @@ export default async function LocaleLayout({
     email: `mailto:${data.contactEmail}`,
     url: `${siteUrl}/${locale}`,
     image: `${siteUrl}/images/portrait-studio.jpg`,
+    sameAs: data.socialLinks
+      .filter((link) => link.platform !== 'email')
+      .map((link) => link.url),
   };
 
   return (

@@ -39,13 +39,14 @@ export default function About({ biography, portraitImage, portraitAlt }: AboutPr
           </div>
         </motion.div>
 
-        <div className={portraitImage ? 'grid md:grid-cols-2 gap-12 md:gap-16 items-center' : ''}>
+        <div className={portraitImage ? 'grid md:grid-cols-2 gap-12 md:gap-16 items-start' : ''}>
           {/* Portrait */}
           {portraitImage && (
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
+              className="md:sticky md:top-28"
             >
               <div className="relative aspect-[4/5] max-w-md mx-auto md:mx-0 md:ml-auto rounded-lg overflow-hidden">
                 <Image
