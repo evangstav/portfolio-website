@@ -14,6 +14,7 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
+    { href: `/#about`, label: t('about') },
     { href: `/media`, label: t('media') },
     { href: `/#contact`, label: t('contact') },
   ];
