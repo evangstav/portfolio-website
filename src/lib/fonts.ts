@@ -4,10 +4,11 @@ import { Cormorant_Garamond, Noto_Serif, Outfit } from 'next/font/google';
 // provides its own <html>/<body> and would otherwise render fallback fonts.
 
 // Greek text falls back to the serif/sans stacks (neither face ships a greek subset)
+// normal style only: nothing on the site sets italic, and the italic face was
+// 39 KB preloaded on the critical path
 export const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
   variable: '--font-cormorant',
 });
 

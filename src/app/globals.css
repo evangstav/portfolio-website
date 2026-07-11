@@ -181,3 +181,94 @@ h1, h2, h3, h4, h5, h6 {
 .scroll-bob {
   animation: scroll-bob 2s ease-in-out infinite;
 }
+
+/* Entrance animations run in CSS so server-rendered content is never gated on
+   JS hydration — with scripts blocked or still downloading, the animation
+   plays anyway and text is visible from first paint. Stagger with
+   [animation-delay:...] utilities or an inline animation-delay. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+}
+
+.anim-fade-in {
+  animation: fade-in 0.8s ease-out both;
+}
+
+.anim-grow-x {
+  transform-origin: left;
+  animation: grow-x 0.8s var(--ease-out-expo) both;
+}
+
+.anim-slide-down {
+  animation: slide-down 0.8s var(--ease-out-expo) both;
+}
+
+/* Anchor targets land below the fixed 80px header instead of underneath it */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Modal chrome (close button, image counter) sits inside the dialog frame by
+   default so it can never clip off-screen; it only moves outside the frame
+   when the viewport is verifiably wide AND tall enough. */
+.dialog-close {
+  top: 0.5rem;
+  right: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-counter {
+  bottom: 0.5rem;
+}
+
+@media (min-width: 640px) and (min-height: 520px) {
+  .dialog-close {
+    top: -3rem;
+    right: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .dialog-counter {
+    bottom: -2.5rem;
+  }
+}

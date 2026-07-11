@@ -1,15 +1,16 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
-import { Play, X, ArrowLeft, ChevronLeft, ChevronRight, Camera, Video as VideoIcon } from 'lucide-react';
+import { X, ArrowLeft, ChevronLeft, ChevronRight, Camera, Video as VideoIcon } from 'lucide-react';
 import { useConductorData } from '@/lib/useConductorData';
 import { Video, GalleryImage } from '@/lib/types';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Footer from '@/components/Footer';
+import VideoCard from '@/components/VideoCard';
 import { useModalA11y } from '@/lib/useModalA11y';
 
 type MediaTab = 'videos' | 'photos';
@@ -64,7 +65,9 @@ export default function MediaGallery() {
       <div className="noise-overlay" />
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)]">
+      {/* Blur off on mobile: re-blurring the strip over a scrolling image grid
+          costs every frame on phones; a nearly-opaque background reads the same */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md max-md:backdrop-blur-none max-md:bg-[var(--color-bg-primary)]/95 border-b border-[var(--color-border-subtle)]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
           <Link
             href={`/${locale}`}
@@ -88,26 +91,16 @@ export default function MediaGallery() {
 
       <main className="pt-32 pb-24 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
-          {/* Page Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
+          {/* Page Title — CSS entrance so it is visible pre-hydration */}
+          <div className="anim-fade-up text-center mb-12">
             <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-6xl text-[var(--color-text-primary)] mb-4">
               {t('media.title')}
             </h1>
             <div className="w-16 h-px bg-[var(--color-accent)] mx-auto" />
-          </motion.div>
+          </div>
 
           {/* Tab Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center gap-4 mb-12"
-          >
+          <div className="anim-fade-up [animation-delay:200ms] flex justify-center gap-4 mb-12">
             <button
               onClick={() => setActiveTab('videos')}
               className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm tracking-wider uppercase transition-all duration-300 ${
@@ -130,12 +123,12 @@ export default function MediaGallery() {
               <Camera size={18} />
               {t('media.photos')}
             </button>
-          </motion.div>
+          </div>
 
           {/* Videos Section */}
           <AnimatePresence mode="wait">
             {activeTab === 'videos' && (
-              <motion.div
+              <m.div
                 key="videos"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -170,53 +163,13 @@ export default function MediaGallery() {
                   }
                 >
                   {filteredVideos.map((video, index) => (
-                    <motion.div
+                    <div
                       key={video.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.05 * index }}
-                      className={filteredVideos.length === 1 ? 'w-full max-w-2xl' : ''}
+                      className={`anim-fade-up ${filteredVideos.length === 1 ? 'w-full max-w-2xl' : ''}`}
+                      style={{ animationDelay: `${50 * index}ms` }}
                     >
-                      <button
-                        onClick={() => setSelectedVideo(video)}
-                        aria-label={`${t('media.playVideo')}: ${video.title}`}
-                        className="group relative w-full aspect-video rounded-lg overflow-hidden bg-[var(--color-bg-card)] card-shine"
-                      >
-                        <Image
-                          src={video.thumbnailUrl}
-                          alt=""
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-[var(--color-accent)]/90 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-500 group-hover:bg-[var(--color-accent)]">
-                            <Play size={28} className="text-[var(--color-bg-primary)] ml-1" fill="currentColor" />
-                          </div>
-                        </div>
-
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <h3 className="font-[family-name:var(--font-display)] text-xl text-white mb-1">
-                            {video.title}
-                          </h3>
-                          {video.subtitle && (
-                            <p className="text-sm text-white/70">{video.subtitle}</p>
-                          )}
-                          <div className="flex items-center gap-3 mt-3 text-xs text-white/50">
-                            {video.duration && <span>{video.duration}</span>}
-                            {video.ensemble && (
-                              <>
-                                <span>•</span>
-                                <span>{video.ensemble}</span>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      </button>
-                    </motion.div>
+                      <VideoCard video={video} onClick={() => setSelectedVideo(video)} />
+                    </div>
                   ))}
                 </div>
 
@@ -225,12 +178,12 @@ export default function MediaGallery() {
                     <p className="text-[var(--color-text-muted)]">{t('media.noVideos')}</p>
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             )}
 
             {/* Photos Section */}
             {activeTab === 'photos' && (
-              <motion.div
+              <m.div
                 key="photos"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -259,11 +212,10 @@ export default function MediaGallery() {
                 {/* Photo Grid — aligned gallery wall for a small curated set */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredPhotos.map((photo, index) => (
-                    <motion.div
+                    <div
                       key={photo.id}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.05 * index }}
+                      className="anim-fade-in"
+                      style={{ animationDelay: `${50 * index}ms` }}
                     >
                       <button
                         onClick={() => openImage(photo, index)}
@@ -277,8 +229,10 @@ export default function MediaGallery() {
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
 
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-end">
-                          <div className="w-full p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                        {/* Caption: always visible on touch devices (no hover);
+                            hidden-until-hover only where hover exists */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent [@media(hover:hover)]:opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+                          <div className="w-full p-6 [@media(hover:hover)]:translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                             {photo.caption && (
                               <p className="text-white text-sm">{photo.caption}</p>
                             )}
@@ -290,7 +244,7 @@ export default function MediaGallery() {
                           </div>
                         </div>
                       </button>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
 
@@ -299,7 +253,7 @@ export default function MediaGallery() {
                     <p className="text-[var(--color-text-muted)]">{t('media.noPhotos')}</p>
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
@@ -342,19 +296,21 @@ export default function MediaGallery() {
             onClose={() => setSelectedImage(null)}
             onArrow={filteredPhotos.length > 1 ? navigateImage : undefined}
           >
-            {/* Navigation buttons */}
+            {/* Navigation buttons — inside the frame on small viewports (pushed
+                fully outside they were untappable on phones/tablets), outside
+                only when the viewport has room */}
             {filteredPhotos.length > 1 && (
               <>
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full z-20 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  className="absolute top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white transition-colors left-2 bg-black/50 hover:bg-black/70 min-[1160px]:left-0 min-[1160px]:-translate-x-full min-[1160px]:bg-white/10 min-[1160px]:hover:bg-white/20"
                   aria-label={t('media.previousImage')}
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('next'); }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full z-20 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  className="absolute top-1/2 -translate-y-1/2 z-20 p-3 rounded-full text-white transition-colors right-2 bg-black/50 hover:bg-black/70 min-[1160px]:right-0 min-[1160px]:translate-x-full min-[1160px]:bg-white/10 min-[1160px]:hover:bg-white/20"
                   aria-label={t('media.nextImage')}
                 >
                   <ChevronRight size={24} />
@@ -376,7 +332,7 @@ export default function MediaGallery() {
               </div>
             )}
 
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+            <div className="dialog-counter absolute left-1/2 -translate-x-1/2 z-20 text-white/80 text-sm">
               {selectedImageIndex + 1} / {filteredPhotos.length}
             </div>
           </MediaDialog>
@@ -408,7 +364,7 @@ function MediaDialog({
   const { containerRef, initialFocusRef } = useModalA11y({ onClose, onArrow });
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -421,7 +377,7 @@ function MediaDialog({
     >
       <div className="absolute inset-0 bg-black/95" />
 
-      <motion.div
+      <m.div
         ref={containerRef}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -430,17 +386,19 @@ function MediaDialog({
         className="relative w-full max-w-5xl z-10"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* .dialog-close keeps the button inside the frame on viewports too
+            small for the above-frame offset to stay on screen */}
         <button
           ref={initialFocusRef}
           onClick={onClose}
-          className="absolute -top-12 right-0 p-2 text-white/60 hover:text-white transition-colors"
+          className="dialog-close absolute z-20 p-2 text-white/60 hover:text-white transition-colors"
           aria-label={t('close')}
         >
           <X size={28} />
         </button>
 
         {children}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

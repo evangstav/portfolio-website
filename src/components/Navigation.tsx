@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -16,8 +16,9 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Already on the homepage: navigating to the same route is a no-op, so
-  // scroll back to the top instead.
+  // close the menu (if open) and scroll back to the top instead.
   const handleHomeClick = (e: React.MouseEvent) => {
+    setIsMobileMenuOpen(false);
     if (pathname === `/${locale}` || pathname === `/${locale}/`) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,14 +58,14 @@ export default function Navigation() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      {/* Slide-down runs in CSS so the header shows without waiting for hydration.
+          transition-colors (not -all) keeps backdrop-filter from animating for
+          500ms right while the user is scrolling past the threshold. */}
+      <header
+        className={`anim-slide-down fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isScrolled
-            ? 'bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)]'
-            : 'bg-gradient-to-b from-black/60 to-transparent'
+            ? 'bg-[var(--color-bg-primary)]/90 backdrop-blur-md max-md:backdrop-blur-none max-md:bg-[var(--color-bg-primary)]/95 border-b border-[var(--color-border-subtle)]'
+            : 'bg-gradient-to-b from-black/60 to-transparent border-b border-transparent'
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -91,7 +92,7 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <LanguageSwitcher />
+              <LanguageSwitcher onDark={!isScrolled} />
             </div>
 
             {/* Mobile Menu Button */}
@@ -106,12 +107,12 @@ export default function Navigation() {
             </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,7 +122,7 @@ export default function Navigation() {
           >
             <nav className="flex flex-col gap-6">
               {navLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -134,18 +135,18 @@ export default function Navigation() {
                   >
                     {link.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.1 }}
                 className="mt-4"
               >
                 <LanguageSwitcher />
-              </motion.div>
+              </m.div>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
