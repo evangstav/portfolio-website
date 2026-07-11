@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -10,8 +11,18 @@ import LanguageSwitcher from './LanguageSwitcher';
 export default function Navigation() {
   const locale = useLocale();
   const t = useTranslations('navigation');
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Already on the homepage: navigating to the same route is a no-op, so
+  // scroll back to the top instead.
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === `/${locale}` || pathname === `/${locale}/`) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const navLinks = [
     { href: `/#about`, label: t('about') },
@@ -61,6 +72,7 @@ export default function Navigation() {
             {/* Home link */}
             <Link
               href={`/${locale}`}
+              onClick={handleHomeClick}
               className={`font-[family-name:var(--font-display)] text-2xl tracking-wide hover:text-[var(--color-accent)] transition-colors duration-300 ${
                 isScrolled ? 'text-[var(--color-text-primary)]' : 'text-white'
               }`}

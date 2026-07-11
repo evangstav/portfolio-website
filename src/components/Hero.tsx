@@ -7,11 +7,10 @@ import { ChevronDown } from 'lucide-react';
 
 interface HeroProps {
   name: string;
-  tagline?: string;
   heroImage: string;
 }
 
-export default function Hero({ name, tagline, heroImage }: HeroProps) {
+export default function Hero({ name, heroImage }: HeroProps) {
   const t = useTranslations('hero');
   const locale = useLocale();
 
@@ -20,10 +19,6 @@ export default function Hero({ name, tagline, heroImage }: HeroProps) {
     locale === 'el'
       ? 'text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl tracking-normal leading-[1.02]'
       : 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide leading-none';
-  const taglineClasses =
-    locale === 'el'
-      ? 'text-base sm:text-lg tracking-[0.22em]'
-      : 'text-lg sm:text-xl tracking-[0.3em]';
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -65,18 +60,6 @@ export default function Hero({ name, tagline, heroImage }: HeroProps) {
           >
             {name}
           </h1>
-
-          {/* Tagline */}
-          {tagline && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className={`${taglineClasses} uppercase text-[var(--color-accent)] font-light`}
-            >
-              {tagline}
-            </motion.p>
-          )}
         </motion.div>
       </div>
 
