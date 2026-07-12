@@ -37,16 +37,19 @@ When changing any displayed text, update both the `en` and `el` variants of whic
 
 ### Components and styling
 
-- Most components under `src/components/` are client components (`'use client'`) — they use `framer-motion` for animations and `useTranslations` for labels. Server components are limited to layouts and metadata.
+- Most components under `src/components/` are client components (`'use client'`) with `useTranslations` for labels. Server components are limited to layouts and metadata.
+- **Animations are CSS-first**: entrance/reveal effects use the `anim-*` keyframe utilities in `globals.css` (staggered via `[animation-delay:...]` or inline `animationDelay`) so server-rendered text is visible before hydration — don't reintroduce framer-motion `initial={{opacity:0}}` entrances on content. framer-motion remains only for modals, the mobile menu, and tab transitions, loaded through `LazyMotion` in `MotionProvider` with `strict` — always `import { m } from 'framer-motion'` and use `m.*`; a full `motion.*` component throws at runtime.
 - Styling is **Tailwind CSS v4** (`@tailwindcss/postcss`) with design tokens defined as CSS custom properties in `src/app/globals.css` (e.g. `--color-accent`, `--font-display`). Components reference tokens via `var(--color-accent)` rather than Tailwind theme keys.
-- Fonts load via `next/font` in `src/app/[locale]/layout.tsx`, exposed as `--font-cormorant`/`--font-outfit` and consumed through `--font-display`/`--font-body` in `globals.css`. Don't reintroduce Google Fonts CSS imports.
+- Fonts load via `next/font` in `src/lib/fonts.ts`, shared by the `[locale]` layout and `not-found.tsx` (which provides its own `<html>` and would otherwise render fallback fonts). Exposed as `--font-cormorant`/`--font-outfit`/`--font-noto-serif-greek` and consumed through `--font-display`/`--font-body` in `globals.css`. Don't reintroduce Google Fonts CSS imports.
+- Video cards are the shared `src/components/VideoCard.tsx`, used by both the homepage Videos section and `/media` — edit it, not per-page copies.
 - Sections render from data: the homepage Videos section returns `null` while `videos` is empty, and Contact hides its "Follow" block while `socialLinks` has no non-email entries. To light them up, add data — don't touch the components.
 - The `[locale]` layout validates the locale and calls `notFound()` for anything else — unknown paths land on the root `src/app/not-found.tsx`, which provides its own `<html>`/`<body>` (the root layout is a passthrough). Keep that invariant when touching layouts.
 
 ### Gotchas
 
 - `*:Zone.Identifier` Windows-download artifacts are gitignored — don't commit new ones if they appear in the working tree (WSL creates them for downloaded files).
-- The contact form sends via Resend through the `sendContactEmail` server action (`src/lib/contactAction.ts`). It needs `RESEND_API_KEY` (see `.env.example`); without it the form reports an honest "could not be sent" error and points at the mailto fallback. An earlier form was removed for faking success with no backend — never reintroduce a success state that isn't backed by actual delivery.
+- The contact form sends via Resend through the `sendContactEmail` server action (`src/lib/contactAction.ts`). It needs `RESEND_API_KEY` and `RESEND_EMAIL_DOMAIN` (see `.env.example`); without them the form reports an honest "could not be sent" error and points at the mailto fallback. An earlier form was removed for faking success with no backend — never reintroduce a success state that isn't backed by actual delivery.
+- Public origin is `https://vaggelisstavropoulos.com` via `NEXT_PUBLIC_SITE_URL` on Vercel (baked in at build time — env changes need a redeploy). `src/lib/siteUrl.ts` feeds canonicals, sitemap, robots, and JSON-LD; it falls back to the per-deployment `VERCEL_URL` if the var is missing, which is wrong for production.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:970c3bf2 -->
 ## Beads Issue Tracker
