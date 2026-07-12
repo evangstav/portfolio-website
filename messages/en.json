@@ -34,6 +34,7 @@
   },
   "media": {
     "title": "Media",
+    "description": "Videos and photos of conductor Vaggelis Stavropoulos — concert recordings, rehearsals, and portraits.",
     "videos": "Videos",
     "photos": "Photos",
     "playVideo": "Play video",
@@ -47,6 +48,7 @@
   },
   "common": {
     "viewAll": "View All",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "skipToContent": "Skip to content"
   }
 }

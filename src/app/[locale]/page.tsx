@@ -18,7 +18,7 @@ export default function Home() {
 
       <Navigation />
 
-      <main>
+      <main id="main-content">
         <Hero
           name={conductorData.name}
           heroImage={conductorData.heroImage}
