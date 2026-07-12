@@ -48,7 +48,7 @@ When changing any displayed text, update both the `en` and `el` variants of whic
 - `*:Zone.Identifier` Windows-download artifacts are gitignored — don't commit new ones if they appear in the working tree (WSL creates them for downloaded files).
 - The contact form sends via Resend through the `sendContactEmail` server action (`src/lib/contactAction.ts`). It needs `RESEND_API_KEY` (see `.env.example`); without it the form reports an honest "could not be sent" error and points at the mailto fallback. An earlier form was removed for faking success with no backend — never reintroduce a success state that isn't backed by actual delivery.
 
-<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:6cd5cc61 -->
+<!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:970c3bf2 -->
 ## Beads Issue Tracker
 
 This project uses **bd (beads)** for issue tracking. Run `bd prime` to see full workflow context and commands.
@@ -92,6 +92,7 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
    # Team-maintainer opt-in only, unless current instructions forbid it:
    git pull --rebase
+   bd dolt push
    git push
    git status
    ```
