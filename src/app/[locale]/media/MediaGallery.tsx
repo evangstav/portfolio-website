@@ -89,7 +89,7 @@ export default function MediaGallery() {
         </div>
       </header>
 
-      <main className="pt-32 pb-24 px-6 lg:px-12">
+      <main id="main-content" className="pt-32 pb-24 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
           {/* Page Title — CSS entrance so it is visible pre-hydration */}
           <div className="anim-fade-up text-center mb-12">

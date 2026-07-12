@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import "../globals.css";
@@ -78,6 +78,7 @@ export default async function LocaleLayout({
   // Opt into static rendering — without this next-intl marks the locale routes dynamic
   setRequestLocale(locale);
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: 'common' });
   const data = conductorDataByLocale[locale];
 
   const personJsonLd = {
@@ -99,6 +100,9 @@ export default async function LocaleLayout({
       className={`scroll-smooth ${cormorant.variable} ${outfit.variable} ${locale === 'el' ? notoSerifGreek.variable : ''}`}
     >
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">
+          {t('skipToContent')}
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

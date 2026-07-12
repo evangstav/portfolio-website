@@ -107,6 +107,23 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
+/* Keyboard users can jump past the fixed header; visible only while focused */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
+  font-weight: 500;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
 .noise-overlay {
   position: fixed;
   top: 0;
