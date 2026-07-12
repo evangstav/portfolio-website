@@ -16,24 +16,29 @@ single YouTube video to be added when the URL is provided.
 - **Biography:** skipped for now; About shows the existing one-line summary only.
 - **Contact email:** real address in the data files; fake social links removed.
 
-## Current state (supersedes anything below that conflicts)
+## Current state (supersedes anything below that conflicts; updated 2026-07-12)
 
-Implemented in PRs #3–#9 on 2026-07-05, then evolved the same day:
+Implemented in PRs #3–#9 on 2026-07-05, then evolved through PRs #11–#22:
 
 - **Name:** Vaggelis Stavropoulos / Βαγγέλης Σταυρόπουλος (renamed from
   "Evangelos" in PR #9; favicon monogram is "VS").
-- **Contact email:** `vagstav97@hotmail.com` (PR #6 set a gmail address; PR #6's
-  successor commit replaced it — always read the current value from
+- **Contact email:** `vagstav97@hotmail.com` (always read the current value from
   `src/data/conductor.{en,el}.ts`).
+- **Biography:** full real bio (EN + EL) landed in PR #18 — the "one-liner"
+  below is history.
 - **Video:** one entry exists (YouTube `HBpDGP7ak2M`, youtube-nocookie embed),
   so the homepage Videos section is visible and the media page defaults to the
   Videos tab.
 - **Social links:** the YouTube channel (`@vaggelisstavropoulos`) is live in
   Follow/footer.
-- **Contact:** the fake form was removed in the review-fix pass (PR #5);
-  Contact is a mailto-first CTA.
+- **Contact:** a real Resend-backed form (`sendContactEmail` server action,
+  PRs #18/#19) with honest failure states and a mailto fallback — the fake form
+  referenced below stayed dead; this one actually delivers.
+- **Domain:** live at `https://vaggelisstavropoulos.com` with
+  `NEXT_PUBLIC_SITE_URL` set on Vercel (2026-07-12).
 
-Do not reintroduce old name/email/no-video assumptions from the sections above.
+Do not reintroduce old name/email/no-video/no-bio assumptions from the
+sections above or below.
 
 ## Resulting site (as of the original implementation)
 
@@ -47,9 +52,9 @@ Do not reintroduce old name/email/no-video assumptions from the sections above.
 - **Images:** `data/*.jpg` copied to `public/images/` as `hero-conducting.jpg`,
   `portrait-studio.jpg`, `piano-color.jpg`, `piano-bw.jpg`.
 
-## Still pending
+## Still pending (as of 2026-07-12)
 
-- Real biography text (EN + EL) — then consider restoring a `/biography` page.
 - Real upcoming/recent performances section once real engagements exist.
-- Contact form backend (Formspree/Resend) only if mailto proves insufficient.
-- `NEXT_PUBLIC_SITE_URL` env var on Vercel once a custom domain exists.
+- Additional social media profiles beyond YouTube.
+- A dedicated concert photo for the gallery (the "In concert" entry reuses the
+  hero image).
