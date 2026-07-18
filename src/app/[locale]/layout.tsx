@@ -85,6 +85,11 @@ export default async function LocaleLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: data.name,
+    alternateName: [
+      'Vaggelis Stavropoulos',
+      'Vangelis Stavropoulos',
+      'Βαγγέλης Σταυρόπουλος',
+    ].filter((name) => name !== data.name),
     jobTitle: data.tagline,
     email: `mailto:${data.contactEmail}`,
     url: `${siteUrl}/${locale}`,

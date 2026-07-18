@@ -30,6 +30,8 @@ export default async function MediaPage({ params }: { params: Promise<{ locale: 
   const { locale } = await params;
   setRequestLocale(locale);
   const data = conductorDataByLocale[locale as Locale];
+  const t = await getTranslations({ locale, namespace: 'media' });
+  const mediaDescription = t('description');
 
   // VideoObject structured data for each embedded video — only fields we
   // actually know; no invented dates or descriptions.
@@ -38,17 +40,40 @@ export default async function MediaPage({ params }: { params: Promise<{ locale: 
       ? {
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          itemListElement: data.videos.map((video, index) => ({
-            '@type': 'VideoObject',
-            position: index + 1,
-            name: video.title,
-            ...(video.subtitle ? { description: video.subtitle } : {}),
-            thumbnailUrl: video.thumbnailUrl,
-            embedUrl: video.videoUrl,
-            url: `${siteUrl}/${locale}/media`,
-          })),
+          itemListElement: data.videos.map((video, index) => {
+            const videoId = video.videoUrl.split('/embed/')[1]?.split(/[?&]/)[0];
+            const contentUrl = videoId
+              ? `https://www.youtube.com/watch?v=${videoId}`
+              : video.videoUrl;
+
+            return {
+              '@type': 'VideoObject',
+              position: index + 1,
+              name: video.title,
+              description: video.subtitle ?? mediaDescription,
+              thumbnailUrl: video.thumbnailUrl,
+              embedUrl: video.videoUrl,
+              contentUrl,
+              url: `${siteUrl}/${locale}/media`,
+              inLanguage: locale,
+            };
+          }),
         }
       : null;
+
+  const imagesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: data.gallery.map((image, index) => ({
+      '@type': 'ImageObject',
+      position: index + 1,
+      name: image.alt,
+      description: image.alt,
+      contentUrl: new URL(image.src, siteUrl).toString(),
+      url: `${siteUrl}/${locale}/media`,
+      inLanguage: locale,
+    })),
+  };
 
   return (
     <>
@@ -58,6 +83,10 @@ export default async function MediaPage({ params }: { params: Promise<{ locale: 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(videosJsonLd) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(imagesJsonLd) }}
+      />
       <MediaGallery />
     </>
   );
