@@ -125,16 +125,9 @@ export default function MediaGallery() {
             </button>
           </div>
 
-          {/* Videos Section */}
-          <AnimatePresence mode="wait">
-            {activeTab === 'videos' && (
-              <m.div
-                key="videos"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-              >
+          {/* Keep both galleries in the server-rendered HTML so search engines can
+              discover every media asset without executing the tab interaction. */}
+          <section hidden={activeTab !== 'videos'} aria-label={t('media.videos')}>
                 {/* Video Filters */}
                 {videoCategories.length > 1 && (
                   <div className="flex flex-wrap justify-center gap-3 mb-10">
@@ -178,18 +171,10 @@ export default function MediaGallery() {
                     <p className="text-[var(--color-text-muted)]">{t('media.noVideos')}</p>
                   </div>
                 )}
-              </m.div>
-            )}
+          </section>
 
-            {/* Photos Section */}
-            {activeTab === 'photos' && (
-              <m.div
-                key="photos"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-              >
+          {/* Photos Section */}
+          <section hidden={activeTab !== 'photos'} aria-label={t('media.photos')}>
                 {/* Photo Filters */}
                 {photoCategories.length > 1 && (
                   <div className="flex flex-wrap justify-center gap-3 mb-10">
@@ -239,9 +224,7 @@ export default function MediaGallery() {
                     <p className="text-[var(--color-text-muted)]">{t('media.noPhotos')}</p>
                   </div>
                 )}
-              </m.div>
-            )}
-          </AnimatePresence>
+          </section>
         </div>
       </main>
 
