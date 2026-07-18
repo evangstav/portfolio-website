@@ -88,7 +88,7 @@ export default async function LocaleLayout({
     jobTitle: data.tagline,
     email: `mailto:${data.contactEmail}`,
     url: `${siteUrl}/${locale}`,
-    image: `${siteUrl}/images/portrait-studio.jpg`,
+    image: `${siteUrl}/images/portrait-studio-suit.jpg`,
     sameAs: data.socialLinks
       .filter((link) => link.platform !== 'email')
       .map((link) => link.url),

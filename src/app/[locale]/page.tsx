@@ -26,7 +26,7 @@ export default function Home() {
 
         <About
           biography={conductorData.biography}
-          portraitImage="/images/piano-bw.jpg"
+          portraitImage="/images/portrait-studio-seated.jpg"
           portraitAlt={conductorData.name}
         />
 

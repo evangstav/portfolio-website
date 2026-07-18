@@ -22,7 +22,7 @@ Implemented in PRs #3–#9 on 2026-07-05, then evolved through PRs #11–#22:
 
 - **Name:** Vaggelis Stavropoulos / Βαγγέλης Σταυρόπουλος (renamed from
   "Evangelos" in PR #9; favicon monogram is "VS").
-- **Contact email:** `vagstav97@hotmail.com` (always read the current value from
+- **Contact email:** `stavropoulos.vls@gmail.com` (always read the current value from
   `src/data/conductor.{en,el}.ts`).
 - **Biography:** full real bio (EN + EL) landed in PR #18 — the "one-liner"
   below is history.

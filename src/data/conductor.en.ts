@@ -16,7 +16,7 @@ Alongside his work as a conductor, Vaggelis is an experienced piano player and a
 
 He holds a Bachelor’s Degree in Orchestra Conducting from the Department of Music Studies of the Ionian University and a Piano Diploma from the International Art Center & Conservatory Athenaeum.`,
 
-  contactEmail: "vagstav97@hotmail.com",
+  contactEmail: "stavropoulos.vls@gmail.com",
 
   socialLinks: [
     { platform: 'youtube', url: 'https://www.youtube.com/@vaggelisstavropoulos' },
@@ -52,9 +52,15 @@ He holds a Bachelor’s Degree in Orchestra Conducting from the Department of Mu
       caption: 'At the piano',
     },
     {
-      id: 'portrait-studio',
-      src: '/images/portrait-studio.jpg',
-      alt: 'Studio portrait of Vaggelis Stavropoulos',
+      id: 'portrait-studio-suit',
+      src: '/images/portrait-studio-suit.jpg',
+      alt: 'Studio portrait of Vaggelis Stavropoulos in a black suit',
+      caption: 'Studio portrait',
+    },
+    {
+      id: 'portrait-studio-seated',
+      src: '/images/portrait-studio-seated.jpg',
+      alt: 'Seated studio portrait of Vaggelis Stavropoulos',
       caption: 'Studio portrait',
     },
   ],
