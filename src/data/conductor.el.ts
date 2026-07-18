@@ -16,7 +16,7 @@ export const conductorDataEl: ConductorData = {
 
 Είναι κάτοχος Πτυχίου Διεύθυνσης Ορχήστρας από το Τμήμα Μουσικών Σπουδών του Ιονίου Πανεπιστημίου και Διπλώματος Πιάνου από το International Art Center & Conservatory Athenaeum.`,
 
-  contactEmail: "vagstav97@hotmail.com",
+  contactEmail: "stavropoulos.vls@gmail.com",
 
   socialLinks: [
     { platform: 'youtube', url: 'https://www.youtube.com/@vaggelisstavropoulos' },
@@ -52,9 +52,15 @@ export const conductorDataEl: ConductorData = {
       caption: 'Στο πιάνο',
     },
     {
-      id: 'portrait-studio',
-      src: '/images/portrait-studio.jpg',
-      alt: 'Πορτρέτο στούντιο του Βαγγέλη Σταυρόπουλου',
+      id: 'portrait-studio-suit',
+      src: '/images/portrait-studio-suit.jpg',
+      alt: 'Πορτρέτο στούντιο του Βαγγέλη Σταυρόπουλου με μαύρο κοστούμι',
+      caption: 'Πορτρέτο στούντιο',
+    },
+    {
+      id: 'portrait-studio-seated',
+      src: '/images/portrait-studio-seated.jpg',
+      alt: 'Καθιστό πορτρέτο στούντιο του Βαγγέλη Σταυρόπουλου',
       caption: 'Πορτρέτο στούντιο',
     },
   ],
