@@ -229,20 +229,6 @@ export default function MediaGallery() {
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
 
-                        {/* Caption: always visible on touch devices (no hover);
-                            hidden-until-hover only where hover exists */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent [@media(hover:hover)]:opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
-                          <div className="w-full p-6 [@media(hover:hover)]:translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                            {photo.caption && (
-                              <p className="text-white text-sm">{photo.caption}</p>
-                            )}
-                            {photo.category && (
-                              <span className="inline-block mt-2 text-xs text-white/60 uppercase tracking-wider">
-                                {photo.category}
-                              </span>
-                            )}
-                          </div>
-                        </div>
                       </button>
                     </div>
                   ))}
@@ -325,12 +311,6 @@ export default function MediaGallery() {
               height={800}
               className="max-h-[85vh] w-auto object-contain rounded-lg mx-auto"
             />
-
-            {selectedImage.caption && (
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
-                <p className="text-white text-center">{selectedImage.caption}</p>
-              </div>
-            )}
 
             <div className="dialog-counter absolute left-1/2 -translate-x-1/2 z-20 text-white/80 text-sm">
               {selectedImageIndex + 1} / {filteredPhotos.length}
