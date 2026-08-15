@@ -12,9 +12,9 @@ export const conductorDataEn: ConductorData = {
 
 He has also led opera and contemporary music projects, including the Greek premiere of Dan Shore’s one-act opera “The Beautiful Bridegroom”. In September 2023, he undertook the coordination and musical direction of the Ionian Conservatory String Ensemble, giving numerous concerts across Corfu.
 
-Alongside his work as a conductor, Vaggelis is an experienced piano player and accompanist. Active as a piano teacher since 2016, he has taught at the Ionian Conservatory, the Music School of Corfu, and through private instruction. He has participated in numerous performances and collaborations, ranging from chamber music concerts and contemporary Greek compositions to educational and cultural productions with the Greek National Opera.
+Alongside his work as a conductor, Vaggelis is an experienced piano player and accompanist. Active as a piano teacher since 2016, he has taught at the Ionian Conservatory, the Music School of Corfu, and through private instruction. He has participated in numerous performances and collaborations, ranging from chamber music concerts featuring classical repertoire and contemporary Greek compositions to educational and cultural productions with the Greek National Opera.
 
-He holds a Bachelor’s Degree in Orchestra Conducting from the Department of Music Studies of the Ionian University and a Piano Diploma from the International Art Center & Conservatory Athenaeum.`,
+In February 2026, he founded and assumed the artistic direction of the musical ensemble Rève Renaissants, which specializes in presenting original transcriptions and arrangements of works from the international repertoire.`,
 
   contactEmail: "stavropoulos.vls@gmail.com",
 
@@ -55,12 +55,6 @@ He holds a Bachelor’s Degree in Orchestra Conducting from the Department of Mu
       id: 'portrait-studio-suit',
       src: '/images/portrait-studio-suit.jpg',
       alt: 'Studio portrait of Vaggelis Stavropoulos in a black suit',
-      caption: 'Studio portrait',
-    },
-    {
-      id: 'portrait-studio-seated',
-      src: '/images/portrait-studio-seated.jpg',
-      alt: 'Seated studio portrait of Vaggelis Stavropoulos',
       caption: 'Studio portrait',
     },
   ],
