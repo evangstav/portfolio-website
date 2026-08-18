@@ -8,27 +8,28 @@ import { Menu, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import LanguageSwitcher from './LanguageSwitcher';
 
-export default function Navigation() {
+export default function Navigation({ homepagePath = '' }: { homepagePath?: string }) {
   const locale = useLocale();
   const t = useTranslations('navigation');
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const homepageHref = `/${locale}${homepagePath}`;
 
   // Already on the homepage: navigating to the same route is a no-op, so
   // close the menu (if open) and scroll back to the top instead.
   const handleHomeClick = (e: React.MouseEvent) => {
     setIsMobileMenuOpen(false);
-    if (pathname === `/${locale}` || pathname === `/${locale}/`) {
+    if (pathname === homepageHref || pathname === `${homepageHref}/`) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const navLinks = [
-    { href: `/#about`, label: t('about') },
-    { href: `/media`, label: t('media') },
-    { href: `/#contact`, label: t('contact') },
+    { href: `${homepageHref}#about`, label: t('about') },
+    { href: `/${locale}/media`, label: t('media') },
+    { href: `${homepageHref}#contact`, label: t('contact') },
   ];
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-20">
             {/* Home link */}
             <Link
-              href={`/${locale}`}
+              href={homepageHref}
               onClick={handleHomeClick}
               className={`font-[family-name:var(--font-display)] text-2xl tracking-wide hover:text-[var(--color-accent)] transition-colors duration-300 ${
                 isScrolled ? 'text-[var(--color-text-primary)]' : 'text-white'
@@ -86,7 +87,7 @@ export default function Navigation() {
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
-                  href={`/${locale}${link.href}`}
+                  href={link.href}
                   className={`text-sm tracking-wider uppercase hover:text-[var(--color-accent)] transition-colors duration-300 ${linkColor}`}
                 >
                   {link.label}
@@ -129,7 +130,7 @@ export default function Navigation() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link
-                    href={`/${locale}${link.href}`}
+                    href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="font-[family-name:var(--font-display)] text-3xl text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
                   >
