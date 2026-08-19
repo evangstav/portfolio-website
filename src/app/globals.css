@@ -174,6 +174,14 @@ h1, h2, h3, h4, h5, h6 {
   );
 }
 
+.hero-edge-vignette {
+  background: radial-gradient(
+    ellipse at 35% 35%,
+    transparent 25%,
+    var(--color-bg-primary) 95%
+  );
+}
+
 @media (min-width: 768px) {
   .hero-image-original {
     object-position: 50% 0%;
@@ -198,6 +206,30 @@ h1, h2, h3, h4, h5, h6 {
       color-mix(in srgb, var(--color-bg-primary) 42%, transparent) 44%,
       color-mix(in srgb, var(--color-bg-primary) 18%, transparent) 100%
     );
+  }
+
+  .hero-image-original ~ .hero-edge-vignette {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-bg-primary) 68%, transparent) 0%,
+        transparent 18%,
+        transparent 78%,
+        color-mix(in srgb, var(--color-bg-primary) 72%, transparent) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-bg-primary) 42%, transparent) 0%,
+        transparent 20%,
+        transparent 76%,
+        color-mix(in srgb, var(--color-bg-primary) 68%, transparent) 100%
+      ),
+      radial-gradient(
+        ellipse at 38% 40%,
+        transparent 30%,
+        color-mix(in srgb, var(--color-bg-primary) 18%, transparent) 66%,
+        color-mix(in srgb, var(--color-bg-primary) 62%, transparent) 100%
+      );
   }
 }
 
