@@ -8,6 +8,8 @@ interface HeroProps {
   name: string;
   heroImage: string;
   imagePosition?: string;
+  imageScale?: number;
+  imageTransformOrigin?: string;
 }
 
 // All entrance animations here are CSS (see globals.css) so the name and
@@ -16,6 +18,8 @@ export default function Hero({
   name,
   heroImage,
   imagePosition = '50% 30%',
+  imageScale = 1,
+  imageTransformOrigin = '50% 50%',
 }: HeroProps) {
   const t = useTranslations('hero');
   const locale = useLocale();
@@ -37,7 +41,11 @@ export default function Hero({
           fill
           priority
           className="object-cover saturate-[0.6]"
-          style={{ objectPosition: imagePosition }}
+          style={{
+            objectPosition: imagePosition,
+            transform: imageScale === 1 ? undefined : `scale(${imageScale})`,
+            transformOrigin: imageTransformOrigin,
+          }}
           sizes="100vw"
         />
         {/* Heavy treatment: candid concert shot needs strong scrims to recede */}
