@@ -168,12 +168,18 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) {
   .hero-image-original {
     object-position: 50% 0%;
-    transform: scale(1.43);
-    transform-origin: 44% 1%;
+    transform: scale(1.35);
+    transform-origin: 44% 0%;
   }
 
   .hero-image-original + .hero-audience-scrim {
-    display: none;
+    display: block;
+    background: linear-gradient(
+      to top,
+      var(--color-bg-primary) 0%,
+      color-mix(in srgb, var(--color-bg-primary) 95%, transparent) 14%,
+      transparent 38%
+    );
   }
 }
 
