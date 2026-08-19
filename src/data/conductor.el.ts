@@ -34,14 +34,6 @@ export const conductorDataEl: ConductorData = {
 
   gallery: [
     {
-      id: 'conducting-live',
-      src: '/images/hero-conducting.jpg',
-      alt: 'Ο Βαγγέλης Σταυρόπουλος διευθύνει σε συναυλία',
-      width: 2000,
-      height: 1500,
-      caption: 'Σε συναυλία',
-    },
-    {
       id: 'conducting-profile-black-white',
       src: '/images/conducting-profile-black-white.jpg',
       alt: 'Ο Βαγγέλης Σταυρόπουλος διευθύνει ορχήστρα, ασπρόμαυρη φωτογραφία',
@@ -84,13 +76,6 @@ export const conductorDataEl: ConductorData = {
       width: 1536,
       height: 1920,
       caption: 'Στο πιάνο',
-    },
-    {
-      id: 'orchestra-curtain-call',
-      src: '/images/orchestra-curtain-call.jpg',
-      alt: 'Μουσικοί ορχήστρας στη σκηνή μετά από συναυλία',
-      width: 2400,
-      height: 1597,
     },
     {
       id: 'conducting-choir-orchestra',

@@ -34,14 +34,6 @@ In February 2026, he founded and assumed the artistic direction of the musical e
 
   gallery: [
     {
-      id: 'conducting-live',
-      src: '/images/hero-conducting.jpg',
-      alt: 'Vaggelis Stavropoulos conducting in concert',
-      width: 2000,
-      height: 1500,
-      caption: 'In concert',
-    },
-    {
       id: 'conducting-profile-black-white',
       src: '/images/conducting-profile-black-white.jpg',
       alt: 'Vaggelis Stavropoulos conducting an orchestra, black and white',
@@ -84,13 +76,6 @@ In February 2026, he founded and assumed the artistic direction of the musical e
       width: 1536,
       height: 1920,
       caption: 'At the piano',
-    },
-    {
-      id: 'orchestra-curtain-call',
-      src: '/images/orchestra-curtain-call.jpg',
-      alt: 'Orchestra musicians on stage after a concert',
-      width: 2400,
-      height: 1597,
     },
     {
       id: 'conducting-choir-orchestra',
