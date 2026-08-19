@@ -44,9 +44,9 @@ export default function Hero({
         />
         <div className="hero-audience-scrim absolute inset-0 pointer-events-none" />
         {/* Heavy treatment: candid concert shot needs strong scrims to recede */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)] via-[var(--color-bg-primary)]/70 to-[var(--color-bg-primary)]/30" />
+        <div className="hero-bottom-treatment absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-primary)]/60 via-transparent to-[var(--color-bg-primary)]/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_35%_35%,transparent_25%,var(--color-bg-primary)_95%)]" />
+        <div className="hero-edge-vignette absolute inset-0" />
       </div>
 
       {/* Content — anchored to the darker lower-left negative space, off the subject */}

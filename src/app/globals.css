@@ -165,21 +165,71 @@ h1, h2, h3, h4, h5, h6 {
   );
 }
 
+.hero-bottom-treatment {
+  background: linear-gradient(
+    to top,
+    var(--color-bg-primary) 0%,
+    color-mix(in srgb, var(--color-bg-primary) 70%, transparent) 50%,
+    color-mix(in srgb, var(--color-bg-primary) 30%, transparent) 100%
+  );
+}
+
+.hero-edge-vignette {
+  background: radial-gradient(
+    ellipse at 35% 35%,
+    transparent 25%,
+    var(--color-bg-primary) 95%
+  );
+}
+
 @media (min-width: 768px) {
   .hero-image-original {
     object-position: 50% 0%;
-    transform: scale(1.35);
-    transform-origin: 44% 0%;
+    transform: none;
   }
 
   .hero-image-original + .hero-audience-scrim {
     display: block;
+    background: radial-gradient(
+      ellipse 34% 30% at 58% 90%,
+      color-mix(in srgb, var(--color-bg-primary) 98%, transparent) 0%,
+      color-mix(in srgb, var(--color-bg-primary) 92%, transparent) 48%,
+      transparent 100%
+    );
+  }
+
+  .hero-image-original ~ .hero-bottom-treatment {
     background: linear-gradient(
       to top,
       var(--color-bg-primary) 0%,
-      color-mix(in srgb, var(--color-bg-primary) 95%, transparent) 14%,
-      transparent 38%
+      color-mix(in srgb, var(--color-bg-primary) 72%, transparent) 20%,
+      color-mix(in srgb, var(--color-bg-primary) 42%, transparent) 44%,
+      color-mix(in srgb, var(--color-bg-primary) 18%, transparent) 100%
     );
+  }
+
+  .hero-image-original ~ .hero-edge-vignette {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--color-bg-primary) 68%, transparent) 0%,
+        transparent 18%,
+        transparent 78%,
+        color-mix(in srgb, var(--color-bg-primary) 72%, transparent) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--color-bg-primary) 42%, transparent) 0%,
+        transparent 20%,
+        transparent 76%,
+        color-mix(in srgb, var(--color-bg-primary) 68%, transparent) 100%
+      ),
+      radial-gradient(
+        ellipse at 38% 40%,
+        transparent 30%,
+        color-mix(in srgb, var(--color-bg-primary) 18%, transparent) 66%,
+        color-mix(in srgb, var(--color-bg-primary) 62%, transparent) 100%
+      );
   }
 }
 
