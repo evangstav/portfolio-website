@@ -194,26 +194,26 @@ export default function MediaGallery() {
                   </div>
                 )}
 
-                {/* Photo Grid — aligned gallery wall for a small curated set */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Photo gallery — natural aspect ratios preserve wide concert scenes. */}
+                <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
                   {filteredPhotos.map((photo, index) => (
                     <div
                       key={photo.id}
-                      className="anim-fade-in"
+                      className="anim-fade-in mb-6 break-inside-avoid"
                       style={{ animationDelay: `${50 * index}ms` }}
                     >
                       <button
                         onClick={() => openImage(photo, index)}
-                        className="group relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-[var(--color-bg-card)]"
+                        className="group relative block w-full rounded-lg overflow-hidden bg-[var(--color-bg-card)]"
                       >
                         <Image
                           src={photo.src}
                           alt={photo.alt}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          width={photo.width}
+                          height={photo.height}
+                          className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
+                          sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc(50vw - 2.25rem), (max-width: 1375px) calc(33.333vw - 3rem), 411px"
                         />
-
                       </button>
                     </div>
                   ))}
@@ -290,9 +290,10 @@ export default function MediaGallery() {
             <Image
               src={selectedImage.src}
               alt={selectedImage.alt}
-              width={1200}
-              height={800}
+              width={selectedImage.width}
+              height={selectedImage.height}
               className="max-h-[85vh] w-auto object-contain rounded-lg mx-auto"
+              sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1087px) calc(100vw - 4rem), 1024px"
             />
 
             <div className="dialog-counter absolute left-1/2 -translate-x-1/2 z-20 text-white/80 text-sm">

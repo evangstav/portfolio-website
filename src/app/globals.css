@@ -140,6 +140,49 @@ h1, h2, h3, h4, h5, h6 {
   background-repeat: repeat;
 }
 
+/*
+ * The original hero needs different focal windows by viewport shape.
+ * Mobile frames the conductor's head and upper body from the left side;
+ * desktop keeps the wider conducting gesture. Both exclude the lower audience.
+ */
+.hero-image-original {
+  object-position: 34% 8%;
+  transform: scale(1.05);
+  transform-origin: 50% 5%;
+}
+
+.hero-audience-scrim {
+  display: none;
+}
+
+.hero-image-original + .hero-audience-scrim {
+  display: block;
+  background: linear-gradient(
+    to top,
+    var(--color-bg-primary) 0%,
+    color-mix(in srgb, var(--color-bg-primary) 92%, transparent) 30%,
+    transparent 62%
+  );
+}
+
+@media (min-width: 768px) {
+  .hero-image-original {
+    object-position: 50% 0%;
+    transform: scale(1.35);
+    transform-origin: 44% 0%;
+  }
+
+  .hero-image-original + .hero-audience-scrim {
+    display: block;
+    background: linear-gradient(
+      to top,
+      var(--color-bg-primary) 0%,
+      color-mix(in srgb, var(--color-bg-primary) 95%, transparent) 14%,
+      transparent 38%
+    );
+  }
+}
+
 /* At 2% opacity the texture is invisible on small screens — skip the layer */
 @media (max-width: 768px) {
   .noise-overlay {

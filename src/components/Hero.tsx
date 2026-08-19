@@ -7,11 +7,18 @@ import { ChevronDown } from 'lucide-react';
 interface HeroProps {
   name: string;
   heroImage: string;
+  imagePosition?: string;
+  imageClassName?: string;
 }
 
 // All entrance animations here are CSS (see globals.css) so the name and
 // scroll cue are visible from first paint, not gated on JS hydration.
-export default function Hero({ name, heroImage }: HeroProps) {
+export default function Hero({
+  name,
+  heroImage,
+  imagePosition,
+  imageClassName,
+}: HeroProps) {
   const t = useTranslations('hero');
   const locale = useLocale();
 
@@ -31,9 +38,11 @@ export default function Hero({ name, heroImage }: HeroProps) {
           alt={name}
           fill
           priority
-          className="object-cover object-[50%_30%] saturate-[0.6]"
+          className={`object-cover saturate-[0.6] ${imageClassName ?? ''}`}
+          style={{ objectPosition: imagePosition }}
           sizes="100vw"
         />
+        <div className="hero-audience-scrim absolute inset-0 pointer-events-none" />
         {/* Heavy treatment: candid concert shot needs strong scrims to recede */}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)] via-[var(--color-bg-primary)]/70 to-[var(--color-bg-primary)]/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-primary)]/60 via-transparent to-[var(--color-bg-primary)]/70" />
