@@ -146,9 +146,23 @@ h1, h2, h3, h4, h5, h6 {
  * desktop keeps the wider conducting gesture. Both exclude the lower audience.
  */
 .hero-image-original {
-  object-position: 30% 8%;
-  transform: scale(1.15);
-  transform-origin: 50% 8%;
+  object-position: 34% 8%;
+  transform: scale(1.05);
+  transform-origin: 50% 5%;
+}
+
+.hero-audience-scrim {
+  display: none;
+}
+
+.hero-image-original + .hero-audience-scrim {
+  display: block;
+  background: linear-gradient(
+    to top,
+    var(--color-bg-primary) 0%,
+    color-mix(in srgb, var(--color-bg-primary) 92%, transparent) 30%,
+    transparent 62%
+  );
 }
 
 @media (min-width: 768px) {
@@ -156,6 +170,10 @@ h1, h2, h3, h4, h5, h6 {
     object-position: 50% 0%;
     transform: scale(1.43);
     transform-origin: 44% 1%;
+  }
+
+  .hero-image-original + .hero-audience-scrim {
+    display: none;
   }
 }
 

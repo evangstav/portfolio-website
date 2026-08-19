@@ -42,6 +42,7 @@ export default function Hero({
           style={{ objectPosition: imagePosition }}
           sizes="100vw"
         />
+        <div className="hero-audience-scrim absolute inset-0 pointer-events-none" />
         {/* Heavy treatment: candid concert shot needs strong scrims to recede */}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)] via-[var(--color-bg-primary)]/70 to-[var(--color-bg-primary)]/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-primary)]/60 via-transparent to-[var(--color-bg-primary)]/70" />
