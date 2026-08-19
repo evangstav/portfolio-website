@@ -32,9 +32,8 @@ export default function HomePage({
         <Hero
           name={conductorData.name}
           heroImage={heroImage ?? conductorData.heroImage}
-          imagePosition={heroImagePosition ?? (heroImage ? undefined : '42% 8%')}
-          imageScale={heroImage ? undefined : 1.75}
-          imageTransformOrigin={heroImage ? undefined : '44% 12%'}
+          imagePosition={heroImagePosition}
+          imageClassName={heroImage ? undefined : 'hero-image-original'}
         />
 
         <About
